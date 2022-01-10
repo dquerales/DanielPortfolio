@@ -56,19 +56,19 @@
 						<section>
 							<ul class="links">
 								<li>
-									<a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin"><span class="label">Linkedin</span>
+									<a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin" target="_blank"><span class="label">Linkedin</span>
 										Daniel Querales
 										<p>My Linkedin Profile</p>
 									</a>
 								</li>
 								<li>
-									<a href="https://github.com/dquerales" class="icon brands fa-github"><span class="label">Github</span>
+									<a href="https://github.com/dquerales" class="icon brands fa-github" target="_blank"><span class="label">Github</span>
 										dquerales
 										<p>My Github Repository</p>
 									</a>
 								</li>
 								<li>
-									<a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span>
+									<a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" target="_blank"><span class="label">Email</span>
 										d.querales@gmail.com
 										<p>My email address</p>
 									</a>
@@ -102,9 +102,52 @@
 									</div>
 								</header>
 								<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-								<code> x = 5; y = 6; z = x + y; </code>
+                                <h1>
+									Importing data
+								</h1>
+								<p> All the data was taken from the <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World
+									in Data</a> COVID-19 dataset.</p>
+								<h1> Ask the Question </h1>
+
+<h2> a) How many total cases exists? What are the total of deaths?</h2>
+
+<pre><code>SELECT MAX(total_cases) AS TotalCases,  MAX(total_deaths) AS TotalDeaths, (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPercentage 
+FROM clean_owid_covid;  </code></pre>
+
+<h2> b) How may people are fully vaccinated?</h2>
+
+<pre><code>SELECT MAX(population) AS WorldPopulation, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated, 
+    MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccinationPercentage
+FROM clean_owid_covid;  </code></pre>
+
+<h2> c) How many cases we had per date? </h2>
+
+<pre><code>SELECT date, MAX(new_cases) AS NewCases 
+FROM clean_owid_covid 
+GROUP BY date 
+ORDER BY date; </code></pre>
+
+<h2> d) What five countries had the most deaths? </h2>	
+
+<pre><code>SELECT location, MAX(total_deaths) AS TotalDeaths FROM clean_owid_covid
+WHERE continent IS NOT NULL
+GROUP BY location
+ORDER BY TotalDeaths DESC
+LIMIT 5; </pre></code>
+
+<h2> e) How fast the vaccunation goes? </h2>
+
+<pre><code>SELECT location, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated,
+    MAX(people_fully_vaccinated)/MAX(population)*100 AS PercentagePeopleFullyVaccinated
+FROM clean_owid_covid
+WHERE continent IS NOT NULL
+GROUP BY location
+ORDER BY PeopleFullyVaccinated DESC; </code></pre>
+
+                                <h1>Results</h1>	
 								<div class='tableauPlaceholder' id='viz1641518864465' style='position: relative;'><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='TwoyearsofCOVID2020-2021&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1641518864465');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1327px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+								<p> </p>
+								<h1>Conclusions</h1>
 								<p>Nunc quis dui scelerisque, scelerisque urna ut, dapibus orci. Sed vitae condimentum lectus, ut imperdiet quam. Maecenas in justo ut nulla aliquam sodales vel at ligula. Sed blandit diam odio, sed fringilla lectus molestie sit amet. Praesent eu tortor viverra lorem mattis pulvinar feugiat in turpis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce ullamcorper tellus sit amet mattis dignissim. Phasellus ut metus ligula. Curabitur nec leo turpis. Ut gravida purus quis erat pretium, sed pellentesque massa elementum. Fusce vestibulum porta augue, at mattis justo. Integer sed sapien fringilla, dapibus risus id, faucibus ante. Pellentesque mattis nunc sit amet tortor pellentesque, non placerat neque viverra. </p>
 								<footer>
 									<ul class="stats">
@@ -123,12 +166,12 @@
 					<section id="footer">
 						<ul class="icons">
 							<li><a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-							<li><a href="https://github.com/dquerales" class="icon brands fa-github"><span class="label">Github</span></a></li>
-							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="https://github.com/dquerales" class="icon brands fa-github" ><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon brands fa-twitter"><span class="label" >Twitter</span></a></li>
 							<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label" >Instagram</span></a></li>
 							<!-- <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li> -->
-							<li><a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+							<li><a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" ><span class="label">Email</span></a></li>
 						</ul>
 						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
 					</section>
