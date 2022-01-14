@@ -1,0 +1,225 @@
+<!DOCTYPE HTML>
+<!--
+	Future Imperfect by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Data Exploration: Two years of COVID</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="single is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Daniel Querales</a></h1>
+						<nav class="links">
+							<ul>
+								<li><a href="#">Data Exploration</a></li>
+								<li><a href="#">Data Analysis</a></li>
+								<li><a href="#">Data Visualization</a></li>
+								<li><a href="#">Machine Learning</a></li>
+							</ul>
+						</nav>
+						<nav class="main">
+							<ul>
+								<li class="search">
+									<a class="fa-search" href="#search">Search</a>
+									<form id="search" method="get" action="#">
+										<input type="text" name="query" placeholder="Search" />
+									</form>
+								</li>
+								<li class="menu">
+									<a class="fa-bars" href="#menu">Menu</a>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+				<section id="menu">
+
+					<!-- Search -->
+						<section>
+							<form class="search" method="get" action="#">
+								<input type="text" name="query" placeholder="Search" />
+							</form>
+						</section>
+
+					<!-- Links -->
+						<section>
+							<ul class="links">
+								<li>
+									<a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin" target="_blank"><span class="label">Linkedin</span>
+										Daniel Querales
+										<p>My Linkedin Profile</p>
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/dquerales" class="icon brands fa-github" target="_blank"><span class="label">Github</span>
+										dquerales
+										<p>My Github Repository</p>
+									</a>
+								</li>
+								<li>
+									<a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" target="_blank"><span class="label">Email</span>
+										d.querales@gmail.com
+										<p>My email address</p>
+									</a>
+								</li>
+							</ul>
+						</section>
+
+					<!-- Actions -->
+					<!-- 
+						<section>
+							<ul class="actions stacked">
+								<li><a href="#" class="button large fit">Log In</a></li>
+							</ul>
+						</section>
+					-->
+				</section>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<article class="post">
+								<header>
+									<div class="title">
+										<h2><a href="#">Data Exploration: Two years of COVID</a></h2>
+										<p>A data exploration project of the COVID-19 dataset using tools like SQL and Tableau.</p>
+									</div>
+									<div class="meta">
+										<time class="published" datetime="2021-01-02">January 2, 2022</time>
+										<a href="#" class="author"><span class="name">Daniel Querales</span><img src="images/avatar.jpg" alt="" /></a>
+									</div>
+								</header>
+								<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+
+								<h1>
+									Project overview
+								</h1>
+
+								<ul>
+									<li>This is a Data Exploration Project of the COVID-19 dataset (from 2020 to 2021).</li>
+									<li>I explore the values of total cases, total deaths & people fully vaccinated.</li>
+									<li>The project was made for educational purpose and his values can be easily compared with <a href="https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en" target="_blank">Google
+									Coronavirus (COVID-19)</a> dashboard.</li>
+									<li>The tools used are SQL Server and Tableau Public.</li>
+									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience/tree/main/Two%20years%20of%20COVID" target="_blank">GitHub
+										Repository.</a></li>
+								</ul>
+
+								<h1>
+									Objectives
+								</h1>
+
+								<p> The goal is to build a report that shows summarized information about the deaths, cases and vaccinations
+									corresponding to the period of 2020-2021 to understand how the pandemic is currently developing in the world. </p>
+
+                                <h1>
+									Data transformation and data preparation
+								</h1>
+
+								<h3>
+									Importing data
+								</h3>
+
+								<p> All the data was taken from the <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World
+									in Data</a> COVID-19 dataset. It was obtained as a .csv, imported to a SQL server, then expose to specific queries
+								    to extract the information wanted. At last, the results were imported to Tableau Public and represented using a dashboard.</p>
+								
+								<h1> Asking the Questions </h1>
+
+<h2> a) How many total cases exists? What are the total of deaths?</h2>
+
+<pre><code>SELECT MAX(total_cases) AS TotalCases,  MAX(total_deaths) AS TotalDeaths, (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPercentage 
+FROM clean_owid_covid;  </code></pre>
+
+<h2> b) How many people are fully vaccinated?</h2>
+
+<pre><code>SELECT MAX(population) AS WorldPopulation, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated, 
+    MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccinationPercentage
+FROM clean_owid_covid;  </code></pre>
+
+<h2> c) How many new cases we had per date? </h2>
+
+<pre><code>SELECT date, MAX(new_cases) AS NewCases 
+FROM clean_owid_covid 
+GROUP BY date 
+ORDER BY date; </code></pre>
+
+<h2> d) Which are the countries with most deaths? </h2>	
+
+<pre><code>SELECT location, MAX(total_deaths) AS TotalDeaths FROM clean_owid_covid
+WHERE continent IS NOT NULL
+GROUP BY location
+ORDER BY TotalDeaths DESC
+LIMIT 5; </pre></code>
+
+<h2> e) How fast the vaccination goes? </h2>
+
+<pre><code>SELECT location, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated,
+    MAX(people_fully_vaccinated)/MAX(population)*100 AS PercentagePeopleFullyVaccinated
+FROM clean_owid_covid
+WHERE continent IS NOT NULL
+GROUP BY location
+ORDER BY PeopleFullyVaccinated DESC; </code></pre>
+
+                                <h1>Results</h1>	
+								<div class='tableauPlaceholder' id='viz1641518864465' style='position: relative;'><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='TwoyearsofCOVID2020-2021&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1641518864465');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1327px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+								<p> </p>
+								<h1>Conclusions</h1>
+								<ul>
+									<li>Only 1.8% percent of the total cases resulted in deaths.</li>
+									<li>By the start of 2022, half of the world population are fully vaccinated.</li>
+									<li>US is the country with the most deaths with 824K.</li>
+									<li>At the end of 2021, we had a spike in new cases to 1.9 M in a single day.</li>
+									<li>China has the most population fully vaccinated, with 83.6%. </li>
+								</ul>
+
+								<footer>
+									<ul class="stats">
+										<li><a href="#">Data Exploration</a></li>
+										<!--
+										<li><a href="#" class="icon solid fa-heart">28</a></li>
+										<li><a href="#" class="icon solid fa-comment">128</a></li>
+										-->
+									</ul>
+								</footer>
+							</article>
+
+					</div>
+
+				<!-- Footer -->
+					<section id="footer">
+						<ul class="icons">
+							<li><a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://github.com/dquerales" class="icon brands fa-github" ><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon brands fa-twitter"><span class="label" >Twitter</span></a></li>
+							<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
+							<li><a href="#" class="icon brands fa-instagram"><span class="label" >Instagram</span></a></li>
+							<!-- <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li> -->
+							<li><a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" ><span class="label">Email</span></a></li>
+						</ul>
+						<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
