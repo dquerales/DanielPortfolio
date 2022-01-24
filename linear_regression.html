@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Data Exploration: Two years of COVID</title>
+		<title>Machine Learning: Predicting Stock Prices with Linear Regression</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -19,6 +19,7 @@
 				<!-- Header -->
 					<header id="header">
 						<h1><a href="index.html">Daniel Querales</a></h1>
+						<!-- 
 						<nav class="links">
 							<ul>
 								<li><a href="#">Data Exploration</a></li>
@@ -27,6 +28,7 @@
 								<li><a href="#">Machine Learning</a></li>
 							</ul>
 						</nav>
+						-->
 						<nav class="main">
 							<ul>
 								<li class="search">
@@ -93,26 +95,25 @@
 							<article class="post">
 								<header>
 									<div class="title">
-										<h2><a href="#">Data Exploration: Two years of COVID</a></h2>
-										<p>A data exploration project of the COVID-19 dataset using tools like SQL and Tableau.</p>
+										<h2><a href="#">Machine Learning: Predicting Stock Prices with Linear Regression</a></h2>
+										<p>A machine learning project to predict Bitcoin Prices using Python libraries.</p>
 									</div>
 									<div class="meta">
-										<time class="published" datetime="2021-01-02">January 2, 2022</time>
+										<time class="published" datetime="2021-01-19">January 19, 2022</time>
 										<a href="#" class="author"><span class="name">Daniel Querales</span><img src="images/avatar.jpg" alt="" /></a>
 									</div>
 								</header>
-								<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
+								<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
 
 								<h1>
 									Project overview
 								</h1>
 
 								<ul>
-									<li>This is a Data Exploration Project of the COVID-19 dataset (from 2020 to 2021).</li>
-									<li>I explore the values of total cases, total deaths & people fully vaccinated.</li>
-									<li>The project was made for educational purpose and his values can be easily compared with <a href="https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en" target="_blank">Google
-									Coronavirus (COVID-19)</a> dashboard.</li>
-									<li>The tools used are SQL Server and Tableau Public.</li>
+									<li>This is a Machine Learning Project of the Bitcoin dataset (from 2017 to 2022).</li>
+									<li>I used a linear regression method to predict the Bitcoin price in a range of 10 days.</li>
+									<li>The project was made for educational purpose and his values are not an investment advice</li>
+									<li>The tools used are Python libraries like Pandas, Numpy, Matplotlib and Sk-Learn.</li>
 									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience/tree/main/Two%20years%20of%20COVID" target="_blank">GitHub
 										Repository.</a></li>
 								</ul>
@@ -121,8 +122,8 @@
 									Objectives
 								</h1>
 
-								<p> The goal is to build a report that shows summarized information about the deaths, cases and vaccinations
-									corresponding to the period of 2020-2021 to understand how the pandemic is currently developing in the world. </p>
+								<p> The goal is to train a machine learning model that tries to predict Bitcoin prices in a range of 10 days. The data used
+									correspond to the period of 2020-2021 to understand how the pandemic is currently developing in the world. </p>
 
                                 <h1>
 									Data transformation and data preparation
@@ -137,45 +138,10 @@
 								    to extract the information wanted. At last, the results were imported to Tableau Public and represented using a dashboard.</p>
 								
 								<h1> Asking the Questions </h1>
-
-<h2> a) How many total cases exists? What are the total of deaths?</h2>
-
-<pre><code>SELECT MAX(total_cases) AS TotalCases,  MAX(total_deaths) AS TotalDeaths, (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPercentage 
-FROM clean_owid_covid;  </code></pre>
-
-<h2> b) How many people are fully vaccinated?</h2>
-
-<pre><code>SELECT MAX(population) AS WorldPopulation, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated, 
-    MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccinationPercentage
-FROM clean_owid_covid;  </code></pre>
-
-<h2> c) How many new cases we had per date? </h2>
-
-<pre><code>SELECT date, MAX(new_cases) AS NewCases 
-FROM clean_owid_covid 
-GROUP BY date 
-ORDER BY date; </code></pre>
-
-<h2> d) Which are the countries with most deaths? </h2>	
-
-<pre><code>SELECT location, MAX(total_deaths) AS TotalDeaths FROM clean_owid_covid
-WHERE continent IS NOT NULL
-GROUP BY location
-ORDER BY TotalDeaths DESC
-LIMIT 5; </pre></code>
-
-<h2> e) How fast the vaccination goes? </h2>
-
-<pre><code>SELECT location, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated,
-    MAX(people_fully_vaccinated)/MAX(population)*100 AS PercentagePeopleFullyVaccinated
-FROM clean_owid_covid
-WHERE continent IS NOT NULL
-GROUP BY location
-ORDER BY PeopleFullyVaccinated DESC; </code></pre>
+								<script src="https://gist.github.com/dquerales/c56e241c5ed6a95df39de5e9901edfb8.js"></script>
 
                                 <h1>Results</h1>	
-								<div class='tableauPlaceholder' id='viz1641518864465' style='position: relative;'><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='TwoyearsofCOVID2020-2021&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1641518864465');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1327px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-								<p> </p>
+								<p>Results </p>
 								<h1>Conclusions</h1>
 								<ul>
 									<li>Only 1.8% percent of the total cases resulted in deaths.</li>
