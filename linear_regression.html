@@ -96,7 +96,7 @@
 								<header>
 									<div class="title">
 										<h2><a href="#">Machine Learning: Predicting Stock Prices with Linear Regression</a></h2>
-										<p>A machine learning project to predict Stock Prices using Python libraries.</p>
+										<p>A machine learning project to predict Stock Prices using the Python libraries Pandas, Numpy, SKlearn and Plotly.</p>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2021-01-19">January 19, 2022</time>
@@ -110,11 +110,12 @@
 								</h1>
 
 								<ul>
-									<li>This is a Machine Learning Project of the Bitcoin dataset (from 2017 to 2022).</li>
-									<li>I used a linear regression method to predict the Bitcoin price in a range of 10 days.</li>
+									<li>This is a Machine Learning Project of the Telsa Stock price dataset (from 2020 to 2022).</li>
+									<li>I used a linear regression method to predict the past prices using a EMA10 indicator as reference.</li>
 									<li>The project was made for educational purpose and his values are not an investment advice</li>
-									<li>The tools used are Python libraries like Pandas, Numpy, Matplotlib and Sk-Learn.</li>
-									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience/tree/main/Two%20years%20of%20COVID" target="_blank">GitHub
+									<li>The tools used are the next Python libraries: Pandas, Numpy, Plotly and Sk-Learn.</li>
+									<li>The prices was obtained from <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance site</a>  </li>
+									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience/tree/main/Predicting%20Stock%20Prices%20with%20Linear%20Regression" target="_blank">GitHub
 										Repository.</a></li>
 								</ul>
 
@@ -122,37 +123,59 @@
 									Objectives
 								</h1>
 
-								<p> The goal is to train a machine learning model that tries to predict Bitcoin prices in a range of 10 days. The data used
-									correspond to the period of 2020-2021 to understand how the pandemic is currently developing in the world. </p>
+								<p> The goal is to train a machine learning model that tries to predict TSLA stocks prices in a range of 10 days. The data used
+									correspond to the period of 2020-2021 to understand how the pandemic is currently affecting the performance of the company. </p>
 
                                 <h1>
 									Data transformation and data preparation
 								</h1>
+							    
+								<p> All the data was taken from <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance site</a> as a CSV. Only was
+								used data from 01/01/2020 to 26/01/2022. </p>
 
-								<h3>
-									Importing data
-								</h3>
-								
-								<h1> Asking the Questions </h1>
-							
-
-                                <h1>Results</h1>	
+                                <h1>Data Analysis</h1>	
 									<h2>Candle Chart</h2>
+									    <p> A candlestick chart is a financial chart to describe price movements of a security, derivative, or currency. 
+											Each candlestick represents all four important information for that day:</p>
+									    <ul> 
+											<li>Open: The price of the stock when the market opens in the morning </li>
+											<li>Close: The price of the stock when the market closed in the evening </li>
+											<li>High: Highest price the stock reached during that day </li>
+                                            <li>Low: Lowest price the stock is traded on that day </li>
+										</ul>
 										<span class="image featured"><img src="images/stocks/candle_chart.png" alt="" /></span>
 									<h2>Adjusted Close</h2>
+										<p> Adjusted close is the closing price after adjustments for all applicable splits and dividend distributions. </p>
 										<span class="image featured"><img src="images/stocks/adj_close.png" alt="" /></span>
 									<h2>Volume</h2>
+										<p>Volume measures the number of shares traded in a stock or contracts traded in futures or options. Volume can indicate market strength, as rising markets on increasing volume are typically viewed as strong and healthy. 
+											When prices fall on increasing volume, the trend is gathering strength to the downside. </p>
 										<span class="image featured"><img src="images/stocks/volume.png" alt="" /></span>
 									<h2>Market Capitalization</h2>
+										<p> Market capitalization (or market cap) is the total dollar value of all the shares of a company's stock. 
+											To calculate a company's market capitalization, multiply its stock's current price by the total number of outstanding shares. </p>
 									    <span class="image featured"><img src="images/stocks/market_cap.png" alt="" /></span>
-
+									<h2>Moving Averages (20-50 days)</h2>
+										<p> In statistics, a moving average is a calculation to analyze data points by creating a series of averages of different subsets of the full data set. It is also called a moving mean or rolling mean and is a type of finite impulse response filter. 
+											Variations include: simple, cumulative, or weighted forms. </p>
+									    <span class="image featured"><img src="images/stocks/m_avg.png" alt="" /></span>
+									<h2>Exponential Moving Averages (10 days)</h2>
+										<p> The exponential moving average (EMA) is a technical chart indicator that tracks the price of an investment (like a stock or commodity) over time. 
+											The EMA is a type of weighted moving average (WMA) that gives more weighting or importance to recent price data. </p>
+									    <span class="image featured"><img src="images/stocks/ema.png" alt="" /></span>
+									
+								<h1>Machine Learning</h1>
+									<h2>Linear Regression Model</h2>
+										<p> linear regression is a linear approach 
+											for modelling the relationship between a scalar response and one or more explanatory variables. </p>
+									    <span class="image featured"><img src="images/stocks/predict_ml.png" alt="" /></span>
+                                
 								<h1>Conclusions</h1>
 								<ul>
-									<li>The all time High value was 1243.48 USD [$] at 2021-11-04.</li>
-									<li>The all time Low value was: 70.10 USD [$] at 2020-03-18</li>
+									<li>The all time High value was 1243 USD [$] at 2021-11-04.</li>
+									<li>The all time Low value was: 70 USD [$] at 2020-03-18</li>
 									<li>The max volume was 304M at 2020-02-04</li>
-									<li>At the end of 2021, we had a spike in new cases to 1.9 M in a single day.</li>
-									<li>China has the most population fully vaccinated, with 83.6%. </li>
+									<li>The model score is around 98% </li>
 								</ul>
 
 								<footer>
