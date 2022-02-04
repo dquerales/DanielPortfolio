@@ -96,7 +96,7 @@
 								<header>
 									<div class="title">
 										<h2><a href="#">Machine Learning: Predicting Stock Prices with Linear Regression</a></h2>
-										<p>A machine learning project to predict Stock Prices using the Python libraries Pandas, Numpy, SKlearn and Plotly.</p>
+										<p>A machine learning project to predict Stock Prices using the Python libraries like Pandas, Numpy, SKlearn and Plotly.</p>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2021-01-19">January 19, 2022</time>
@@ -111,10 +111,11 @@
 
 								<ul>
 									<li>This is a Machine Learning Project of the Telsa Stock price dataset (from 2020 to 2022).</li>
-									<li>I used a linear regression method to predict the past prices using a EMA10 indicator as reference.</li>
+									<li>A linear regression method was used to predict the past prices using historic values as reference.</li>
 									<li>The project was made for educational purpose and his values are not an investment advice</li>
 									<li>The tools used are the next Python libraries: Pandas, Numpy, Plotly and Sk-Learn.</li>
-									<li>The prices was obtained from <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance site</a>  </li>
+									<li>All the procedures details are recorded in a Jupyter Notebook.</li>
+									<li>The prices was obtained from the <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance site</a>  </li>
 									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience/tree/main/Predicting%20Stock%20Prices%20with%20Linear%20Regression" target="_blank">GitHub
 										Repository.</a></li>
 								</ul>
@@ -123,20 +124,20 @@
 									Objectives
 								</h1>
 
-								<p> The goal is to train a machine learning model that tries to predict TSLA stocks prices in a range of 10 days. The data used
+								<p> The goal was to train a machine learning model that tries to predict TSLA stocks prices in a range of the two past years. The data used
 									correspond to the period of 2020-2021 to understand how the pandemic is currently affecting the performance of the company. </p>
 
                                 <h1>
-									Data transformation and data preparation
+									Data transformation and preparation
 								</h1>
 							    
 								<p> All the data was taken from <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance site</a> as a CSV. Only was
 								used data from 01/01/2020 to 26/01/2022. </p>
 
-                                <h1>Data Analysis</h1>	
+                                <h1>Data Analysis</h1>
+								<p>For the analysis of the stock prices, we need to explore the following representations:</p> 
 									<h2>Candle Chart</h2>
-									    <p> A candlestick chart is a financial chart to describe price movements of a security, derivative, or currency. 
-											Each candlestick represents all four important information for that day:</p>
+									    <p> First, we need a candlestick chart to describe price movements of a security, derivative, or currency. Each candlestick represents all four important information for that day:</p>
 									    <ul> 
 											<li>Open: The price of the stock when the market opens in the morning </li>
 											<li>Close: The price of the stock when the market closed in the evening </li>
@@ -144,40 +145,78 @@
                                             <li>Low: Lowest price the stock is traded on that day </li>
 										</ul>
 										<span class="image featured"><img src="images/stocks/candle_chart.png" alt="" /></span>
+
+										<ul> 
+											<li>The TSLA stock price has growth 800% between 2020-2022.</li>
+											<li>The max value was 1243$ in November, 2021.</li>
+											<li>The min value was 70$ in March 2020.</li>
+										</ul>
+
 									<h2>Adjusted Close</h2>
-										<p> Adjusted close is the closing price after adjustments for all applicable splits and dividend distributions. </p>
+										<p> The adjusted close is the closing price after adjustments for all applicable splits and dividend distributions. </p>
 										<span class="image featured"><img src="images/stocks/adj_close.png" alt="" /></span>
+
+									    <ul> 
+											<li>The adjusted close price had a positive slope in the period of study.</li>
+										</ul>
+
 									<h2>Volume</h2>
 										<p>Volume measures the number of shares traded in a stock or contracts traded in futures or options. Volume can indicate market strength, as rising markets on increasing volume are typically viewed as strong and healthy. 
 											When prices fall on increasing volume, the trend is gathering strength to the downside. </p>
 										<span class="image featured"><img src="images/stocks/volume.png" alt="" /></span>
+
+										<ul> 
+											<li>The volume had a spike in February, July and December of 2020.</li>
+										</ul>
+
 									<h2>Market Capitalization</h2>
 										<p> Market capitalization (or market cap) is the total dollar value of all the shares of a company's stock. 
 											To calculate a company's market capitalization, multiply its stock's current price by the total number of outstanding shares. </p>
 									    <span class="image featured"><img src="images/stocks/market_cap.png" alt="" /></span>
-									<h2>Moving Averages (20-50 days)</h2>
+
+										<ul> 
+											<li>The Market capitalization had his highest value in December, 18, 2020.</li>
+										</ul>
+
+									<h2>Volatility</h2>
+										<p>Comparison between the changes in prices each day</p>
+									    <span class="image featured"><img src="images/stocks/volatility.png" alt="" /></span>
+									
+									    <ul> 
+											<li>The volatility was around 5% per day.</li>
+										</ul>
+
+									<h2>Moving Averages (50-200 days)</h2>
 										<p> In statistics, a moving average is a calculation to analyze data points by creating a series of averages of different subsets of the full data set. It is also called a moving mean or rolling mean and is a type of finite impulse response filter. 
 											Variations include: simple, cumulative, or weighted forms. </p>
 									    <span class="image featured"><img src="images/stocks/m_avg.png" alt="" /></span>
-									<h2>Exponential Moving Averages (10 days)</h2>
-										<p> The exponential moving average (EMA) is a technical chart indicator that tracks the price of an investment (like a stock or commodity) over time. 
-											The EMA is a type of weighted moving average (WMA) that gives more weighting or importance to recent price data. </p>
-									    <span class="image featured"><img src="images/stocks/ema.png" alt="" /></span>
+
+										<ul> 
+											<li>The 50-200 days averages were positive most of time.</li>
+										</ul>
+
 									
 								<h1>Machine Learning</h1>
 									<h2>Linear Regression Model</h2>
-										<p> linear regression is a linear approach 
-											for modelling the relationship between a scalar response and one or more explanatory variables. </p>
+										<p> To predict the past prices of the stock, was used a linear regression. This means a linear approach 
+											for modelling the relationship between the prices. </p>
+
+										<ul>
+											<li>The data was split in train and test sets, using 8:2 ratio.</li>
+                                            <li>The input was Open, High, Low and Volume. Also using the date as index</li>
+											<li>The model score using the test data was around 98% </li>
+										</ul>
 									    <span class="image featured"><img src="images/stocks/predict_ml.png" alt="" max-width: 100%;
 											height: auto; /></span>
                                 
 								<h1>Conclusions</h1>
 								<ul>
-									<li>The all time High value was 1243 USD [$] at 2021-11-04.</li>
-									<li>The all time Low value was: 70 USD [$] at 2020-03-18</li>
-									<li>The max volume was 304M at 2020-02-04</li>
-									<li>The model score is around 98% </li>
-									<li>The market volatility and a variety of other variables make extremely difficult to anticipate the rise and fall of the market with great precision.</li>
+									<li>The all time High value was 1243$ at 2021-11-04.</li>
+									<li>The all time Low value was: 70$ at 2020-03-18</li>
+									<li>The Max volume was 304M$ at 2020-02-04</li>
+									<li>If we would have invested in the TSLA stock, at start 2020, we had today a return of 8X.</li>
+									<li>The machine learning model was around 98% of accuraccy for predicting test values.</li>
+									<li>This model is only used for educational purpose. In reality, the market volatility nature makes extremely difficult to anticipate the rise and fall of the stocks.</li>
 								</ul>
 
 								<footer>
