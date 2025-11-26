@@ -1,317 +1,357 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daniel Querales - Data Scientist Portfolio</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4f46e5; /* indigo-600 */
-            --text-color: #1e293b; /* slate-800 */
-            --secondary-bg-color: #f1f5f9; /* slate-100 */
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
         }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: white;
-            color: var(--text-color);
-            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
         }
-        .section-heading {
-            position: relative;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
-            font-size: 2.25rem;
-            color: var(--text-color);
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
         }
-        .section-heading::after {
-            content: '';
+        .text-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blob {
             position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 4px;
-            background-color: var(--primary-color);
-            border-radius: 2px;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: pulse 10s infinite;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
-        .social-icon {
-            color: var(--text-color);
-            transition: color 0.3s;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        .social-icon:hover {
-            color: var(--primary-color);
+        .skill-icon-wrapper {
+            transition: all 0.3s ease;
+        }
+        .group:hover .skill-icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
         }
     </style>
 </head>
-<body>
+<body class="text-slate-800 antialiased relative overflow-x-hidden">
+
+    <!-- Decorative Background Blobs -->
+    <div class="blob bg-indigo-300 w-96 h-96 rounded-full top-0 right-0 -mr-20 -mt-20"></div>
+    <div class="blob bg-sky-200 w-80 h-80 rounded-full bottom-0 left-0 -ml-20 -mb-20"></div>
 
     <!-- Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg border-b border-slate-200">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-2xl font-extrabold text-slate-900 tracking-tight">DANIEL QUERALES</a>
+    <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold font-heading tracking-tight flex items-center gap-2 group">
+                <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm group-hover:bg-indigo-700 transition">DQ</span>
+                <span class="text-slate-900 group-hover:text-indigo-600 transition">Daniel Querales</span>
+            </a>
             
-            <div class="hidden md:flex space-x-6">
-                <a href="#skills" class="text-slate-600 hover:text-indigo-600 transition">Expertise</a>
-                <a href="#projects" class="text-slate-600 hover:text-indigo-600 transition">Projects</a>
-                <a href="#contact" class="text-slate-600 hover:text-indigo-600 transition">Contact</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#skills" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Expertise</a>
+                <a href="#projects" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Projects</a>
+                <a href="#contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
             </div>
 
-            <!-- Social Links and LinkedIn Button in Header -->
-            <div class="flex items-center space-x-4">
-                <!-- GitHub Icon -->
-                <a href="https://github.com/dquerales" target="_blank" title="GitHub" class="hidden sm:inline-block">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 3.5c-.17-.65-1.25-.8-1.55-.8c-1 0-2 0-3 0-1 0-2 0-3 0a5.07 5.07 0 00-.09-1.27A5.44 5.44 0 0012 2c-3 0-5.5 1.5-5.5 5.5A5.44 5.44 0 006.09 9.5c.3.0.6.0.9.0a8.88 8.88 0 003.11.87v3.87c-2.45.11-4.9-.76-7-3-2 .5-4 2.5-7 3"></path>
-                    </svg>
+            <div class="flex items-center space-x-3">
+                <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
                 </a>
-                <!-- LinkedIn Profile Button (Restored) -->
-                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="hidden sm:inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 shadow-md">
-                    LinkedIn Profile
+                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition">
+                    LinkedIn
                 </a>
-
-                <!-- Mobile Menu Button -->
-                <button class="md:hidden text-slate-800 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                </button>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 gap-10 items-center">
-            <div class="space-y-6">
-                <p class="text-xl font-medium text-indigo-600">Hello, I'm Daniel Querales</p>
-                <h1 class="text-5xl md:text-6xl font-extrabold leading-tight text-slate-900">
-                    <span class="block">Data Scientist</span>
-                    <span class="block text-indigo-600">Driving Data-Driven Solutions.</span>
+    <section id="hero" class="pt-32 pb-20 md:pt-40 md:pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center px-3 py-1 rounded-full border border-indigo-100 bg-indigo-50/50 text-indigo-600 text-xs font-semibold uppercase tracking-wide mb-6">
+                    <span class="w-2 h-2 bg-indigo-500 rounded-full mr-2 animate-pulse"></span>
+                    Available for work
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-tight mb-6">
+                    Data Scientist <br>
+                    <span class="text-gradient">Engineered for Impact.</span>
                 </h1>
-                <p class="text-slate-700 text-lg">
-                    Electrical Engineer with core expertise in the complete machine learning lifecycle. Proficient in R, Python, and SQL, I specialize in transforming raw data into predictive models and operational deployment, utilizing big data tools and visualization platforms.
+                <p class="text-lg md:text-xl text-slate-600 leading-relaxed mb-8">
+                    I bridge the gap between complex data and actionable strategy. Specializing in 
+                    <strong class="text-slate-800 font-semibold">MLOps</strong>, 
+                    <strong class="text-slate-800 font-semibold">Big Data</strong>, and 
+                    <strong class="text-slate-800 font-semibold">Predictive Analytics</strong> using Databricks, Spark, and Python.
                 </p>
-                <div class="flex space-x-4 pt-4">
-                    <a href="#projects" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-xl transition duration-300 shadow-lg shadow-indigo-500/50">
-                        View Projects
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#projects" class="inline-flex justify-center items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200 hover:shadow-indigo-300 transition transform hover:-translate-y-0.5">
+                        View Selected Work
                     </a>
-                    <a href="mailto:d.querales@gmail.com" class="bg-slate-300 hover:bg-slate-400 text-slate-800 font-semibold py-3 px-8 rounded-xl transition duration-300 shadow-lg">
+                    <a href="mailto:d.querales@gmail.com" class="inline-flex justify-center items-center px-8 py-3.5 border border-slate-200 text-base font-semibold rounded-xl text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 transition shadow-sm">
                         Contact Me
                     </a>
                 </div>
             </div>
-            <div class="hidden md:flex justify-center">
-                <!-- Placeholder for a clean, abstract Data Science icon/graphic -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500 opacity-70">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="9" y1="3" x2="9" y2="21"></line>
-                    <line x1="15" y1="3" x2="15" y2="21"></line>
-                    <line x1="3" y1="9" x2="21" y2="9"></line>
-                    <line x1="3" y1="15" x2="21" y2="15"></line>
-                    <circle cx="12" cy="12" r="3" fill="var(--primary-color)"></circle>
-                </svg>
+            
+            <div class="relative hidden lg:block">
+                <!-- Abstract Hero Graphic -->
+                <div class="relative z-10 bg-white rounded-2xl shadow-2xl shadow-indigo-100 p-8 border border-slate-100 transform rotate-2 hover:rotate-0 transition duration-500">
+                    <div class="absolute top-0 right-0 -mr-4 -mt-4 w-24 h-24 bg-indigo-500 rounded-full opacity-10 blur-xl"></div>
+                    
+                    <div class="space-y-6">
+                        <!-- Simulated Code/Data Block -->
+                        <div class="flex items-center space-x-4 border-b border-slate-100 pb-4">
+                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-orange-600">
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                            </div>
+                            <div>
+                                <div class="h-2 w-24 bg-slate-200 rounded mb-2"></div>
+                                <div class="h-2 w-16 bg-slate-100 rounded"></div>
+                            </div>
+                            <div class="ml-auto text-xs font-mono text-green-600 bg-green-50 px-2 py-1 rounded">Experiment Active</div>
+                        </div>
+                         <!-- Stats -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Model Accuracy</p>
+                                <p class="text-2xl font-bold text-slate-800">96.8%</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Data Processed</p>
+                                <p class="text-2xl font-bold text-slate-800">4.2 TB</p>
+                            </div>
+                        </div>
+                        <!-- Tech Stack Mini Icons -->
+                         <div class="pt-2 flex justify-between items-center text-slate-400">
+                            <svg class="w-6 h-6 hover:text-[#E65100]" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0002 0.000104904C5.37278 0.000104904 0.000183105 5.3727 0.000183105 12.0001C0.000183105 18.6275 5.37278 24.0001 12.0002 24.0001C18.6276 24.0001 24.0002 18.6275 24.0002 12.0001C23.9991 5.37319 18.6271 0.00119209 12.0002 0.000104904ZM17.4102 17.5701C17.4102 17.5701 13.9802 14.1901 10.5102 10.7701L10.2802 17.2801L6.70018 17.2801L6.70018 6.7201H10.5102C13.8802 10.0301 17.1602 13.2601 17.1602 13.2601L17.4102 6.7201H20.9802L20.9802 17.5701H17.4102Z" /></svg> <!-- Spark -->
+                            <svg class="w-6 h-6 hover:text-[#3776AB]" viewBox="0 0 24 24" fill="currentColor"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM22.06 9.76l.06 1.22-.16 1.04-.24.87-.32.71-.36.57-.4.44-.42.33-.42.24-.4.16-.36.1-.32.05-.24.01h-.16l-.06-.01h-8.16v.83h5.61l.01 2.75.02.37-.05.34-.11.31-.17.28-.25.26-.31.23-.38.2-.44.18-.51.15-.58.12-.64.1-.71.06-.77.04-.84.02-1.27-.05-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02h3.4l.69-.05.59-.14.5-.22.41-.27.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01h.29l.35.06.43.09.51.13.58.18.64.24.71.3.77.38.84.46.88.58.68.56.63.74.56.88.47 1.03.36 1.15.24 1.24zm-6.28 5.48l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22z"/></svg> <!-- Python -->
+                            <svg class="w-6 h-6 hover:text-[#00C7B7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg> <!-- Generic Data -->
+                         </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills and Expertise Section -->
-    <section id="skills" class="py-16 md:py-24 bg-slate-100 border-t border-b border-slate-200">
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-heading text-slate-900">Core Expertise</h2>
-
-            <!-- Technology/Language Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mt-10">
-                <!-- Skill Card 1: Python -->
-                <div class="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-300 shadow-lg transition hover:scale-105 hover:border-indigo-500">
-                    <span class="text-4xl text-yellow-500">🐍</span>
-                    <p class="mt-2 text-md font-semibold text-slate-800">Python (ML Stack)</p>
-                </div>
-                <!-- Skill Card 2: R -->
-                <div class="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-300 shadow-lg transition hover:scale-105 hover:border-indigo-500">
-                    <span class="text-4xl text-blue-500">📊</span>
-                    <p class="mt-2 text-md font-semibold text-slate-800">R Language</p>
-                </div>
-                <!-- Skill Card 3: SQL -->
-                <div class="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-300 shadow-lg transition hover:scale-105 hover:border-indigo-500">
-                    <span class="text-4xl text-gray-500">💾</span>
-                    <p class="mt-2 text-md font-semibold text-slate-800">SQL (MySQL)</p>
-                </div>
-                <!-- Skill Card 4: Spark -->
-                <div class="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-300 shadow-lg transition hover:scale-105 hover:border-indigo-500">
-                    <span class="text-4xl text-orange-600">🔥</span>
-                    <p class="mt-2 text-md font-semibold text-slate-800">Apache Spark</p>
-                </div>
-                <!-- Skill Card 5: Tableau/BI -->
-                <div class="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-300 shadow-lg transition hover:scale-105 hover:border-indigo-500">
-                    <span class="text-4xl text-sky-600">📈</span>
-                    <p class="mt-2 text-md font-semibold text-slate-800">Tableau & Power BI</p>
-                </div>
-                <!-- Skill Card 6: Cloud -->
-                <div class="flex flex-col items-center p-4 bg-white rounded-xl border border-slate-300 shadow-lg transition hover:scale-105 hover:border-indigo-500">
-                    <span class="text-4xl text-green-600">☁️</span>
-                    <p class="mt-2 text-md font-semibold text-slate-800">Azure & AWS</p>
-                </div>
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Technical Expertise</h2>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    My stack is built for scale. From data ingestion to model deployment, I leverage industry-standard tools to build robust data products.
+                </p>
             </div>
 
-            <!-- Focus Areas -->
-            <div class="mt-16">
-                <h3 class="text-2xl font-semibold text-indigo-600 mb-6">Key Focus Areas</h3>
-                <div class="grid md:grid-cols-3 gap-8 text-slate-600">
-                    <div class="flex items-start space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6"/><path d="M15 11l-3 3-3-3"/></svg>
-                        <div>
-                            <p class="font-medium text-slate-800">Machine Learning Lifecycle</p>
-                            <p class="text-sm">Expert in model training, deployment (MLOps), and evaluation.</p>
-                        </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- 1. Python -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-[#3776AB]">
+                        <!-- Python Icon -->
+                        <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM22.06 9.76l.06 1.22-.16 1.04-.24.87-.32.71-.36.57-.4.44-.42.33-.42.24-.4.16-.36.1-.32.05-.24.01h-.16l-.06-.01h-8.16v.83h5.61l.01 2.75.02.37-.05.34-.11.31-.17.28-.25.26-.31.23-.38.2-.44.18-.51.15-.58.12-.64.1-.71.06-.77.04-.84.02-1.27-.05-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02h3.4l.69-.05.59-.14.5-.22.41-.27.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01h.29l.35.06.43.09.51.13.58.18.64.24.71.3.77.38.84.46.88.58.68.56.63.74.56.88.47 1.03.36 1.15.24 1.24zm-6.28 5.48l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22z"/></svg>
                     </div>
-                    <div class="flex items-start space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16 4h4v4"/><path d="M14.5 10c.5.5 1.5 1.5 2 2l-3 3-3-3"/><path d="M8 14h0"/><path d="M10 16h0"/><path d="M6 18h0"/></svg>
-                        <div>
-                            <p class="font-medium text-slate-800">Data Quality & Processing</p>
-                            <p class="text-sm">Extensive experience in cleaning, transforming, and preparing data for analysis.</p>
-                        </div>
-                    </div>
-                    <div class="flex items-start space-x-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11h.01"/><path d="M12 18h.01"/><path d="M12 14h.01"/><path d="M12 10h.01"/><path d="M12 6h.01"/><path d="M12 22s8-4 8-10C20 6 16 2 12 2S4 6 4 12c0 6 8 10 8 10z"/></svg>
-                        <div>
-                            <p class="font-medium text-slate-800">Data-Driven Collaboration</p>
-                            <p class="text-sm">Adept at working with cross-functional teams to deliver insights.</p>
-                        </div>
-                    </div>
+                    <h3 class="font-bold text-slate-800">Python</h3>
+                    <p class="text-sm text-slate-500 mt-1">Pandas, Scikit-learn, NumPy</p>
                 </div>
+
+                <!-- 2. R Language -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-[#276DC3]">
+                         <span class="text-2xl font-bold font-serif">R</span>
+                    </div>
+                    <h3 class="font-bold text-slate-800">R Language</h3>
+                    <p class="text-sm text-slate-500 mt-1">Statistical Analysis, Modeling</p>
+                </div>
+
+                 <!-- 3. SQL -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-slate-600">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">SQL</h3>
+                    <p class="text-sm text-slate-500 mt-1">MySQL, Complex Queries</p>
+                </div>
+
+                <!-- 4. Databricks (NEW) -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-[#FF3621]">
+                        <!-- Databricks Logo Imitation -->
+                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M2.2 16.5L12 21.9l9.8-5.4V7.5L12 2.1 2.2 7.5v9zM12 4.3l7.6 4.2-2.9 1.6-4.7-2.6V4.3zm-1.2 3.2l4.7 2.6-4.7 2.6-4.7-2.6 4.7-2.6zm-4.7 9.8l-2.9-1.6V9.9l2.9 1.6v4.2zm1.2-5.4l4.7 2.6-4.7 2.6-4.7-2.6 4.7-2.6zm4.7 5.4v-4.2l2.9-1.6v5.8l-2.9-1.6z"/></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Databricks</h3>
+                    <p class="text-sm text-slate-500 mt-1">Unified Data Analytics</p>
+                </div>
+
+                <!-- 5. Apache Spark -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-[#E25A1C]">
+                        <!-- Spark Logo Imitation -->
+                         <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12.0002 0.000104904C5.37278 0.000104904 0.000183105 5.3727 0.000183105 12.0001C0.000183105 18.6275 5.37278 24.0001 12.0002 24.0001C18.6276 24.0001 24.0002 18.6275 24.0002 12.0001C23.9991 5.37319 18.6271 0.00119209 12.0002 0.000104904ZM17.4102 17.5701C17.4102 17.5701 13.9802 14.1901 10.5102 10.7701L10.2802 17.2801L6.70018 17.2801L6.70018 6.7201H10.5102C13.8802 10.0301 17.1602 13.2601 17.1602 13.2601L17.4102 6.7201H20.9802L20.9802 17.5701H17.4102Z" /></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Apache Spark</h3>
+                    <p class="text-sm text-slate-500 mt-1">Big Data Processing</p>
+                </div>
+
+                <!-- 6. Apache Airflow (NEW) -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-[#017CEE]">
+                        <!-- Airflow Icon -->
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> <!-- Placeholder for Airflow aesthetic -->
+                    </div>
+                    <h3 class="font-bold text-slate-800">Apache Airflow</h3>
+                    <p class="text-sm text-slate-500 mt-1">Workflow Orchestration</p>
+                </div>
+
+                <!-- 7. MLflow (NEW) -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-[#0194E2]">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">MLflow</h3>
+                    <p class="text-sm text-slate-500 mt-1">Lifecycle Management</p>
+                </div>
+
+                <!-- 8. Visualization -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-purple-600">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Visualization</h3>
+                    <p class="text-sm text-slate-500 mt-1">Tableau, Power BI</p>
+                </div>
+
+                <!-- 9. Cloud -->
+                <div class="group p-6 rounded-2xl bg-slate-50 border border-slate-100 hover:border-indigo-100 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300">
+                    <div class="skill-icon-wrapper w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center mb-4 text-sky-500">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+                    </div>
+                    <h3 class="font-bold text-slate-800">Cloud Computing</h3>
+                    <p class="text-sm text-slate-500 mt-1">Azure & AWS</p>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 md:py-24">
+    <section id="projects" class="py-20 bg-slate-50 border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="section-heading text-slate-900">Selected Projects</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-12">Featured Projects</h2>
 
-            <div class="grid md:grid-cols-4 gap-8 mt-10">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-                <!-- Project Card 1: Sentiment Analysis Web App -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-lg transition duration-300 border border-slate-200 hover:border-indigo-500">
-                    <span class="text-4xl text-pink-500 mb-4 block">🤖</span>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Web APP Deployment: Sentiment Analysis</h3>
-                    <p class="text-slate-600 mb-4 text-sm">Created and deployed a robust text classifier model to automate sentiment analysis of reviews, utilizing a preprocessing pipeline and SVC for high accuracy.</p>
-                    <div class="flex flex-wrap gap-2 text-xs font-medium mt-4">
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Streamlit</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">SVC Classifier</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">NLP</span>
+                <!-- Project 1 -->
+                <a href="https://github.com/dquerales/DanielPortfolio/blob/main/linear_regression.html" target="_blank" class="group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 border border-slate-200 hover:border-indigo-500 transition-all duration-300 overflow-hidden h-full">
+                    <div class="h-40 bg-gradient-to-br from-pink-50 to-rose-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <span class="text-4xl">🤖</span>
                     </div>
-                    <div class="mt-6">
-                        <a href="linear_regression.html" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
-                            View WebApp / Code
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        </a>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">Sentiment Analysis WebApp</h3>
+                        <p class="text-sm text-slate-600 mt-2 mb-4 line-clamp-3">Robust text classifier model for review analysis using SVC and custom preprocessing pipelines.</p>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">Streamlit</span>
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">NLP</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
-                <!-- Project Card 2: Sales Analysis: Electronics Store -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-lg transition duration-300 border border-slate-200 hover:border-indigo-500">
-                    <span class="text-4xl text-lime-600 mb-4 block">🛒</span>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Sales Analysis: Electronics Store</h3>
-                    <p class="text-slate-600 mb-4 text-sm">Analyzed electronics sales records to identify revenue growth opportunities, pinpointing best-selling products, optimal sales months, and frequently bought-together items.</p>
-                    <div class="flex flex-wrap gap-2 text-xs font-medium mt-4">
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Pandas/Python</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Revenue Growth</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Market Basket Analysis</span>
+                <!-- Project 2 -->
+                <a href="https://github.com/dquerales/DanielPortfolio/blob/main/sales_analysis.html" target="_blank" class="group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 border border-slate-200 hover:border-indigo-500 transition-all duration-300 overflow-hidden h-full">
+                    <div class="h-40 bg-gradient-to-br from-lime-50 to-green-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <span class="text-4xl">🛒</span>
                     </div>
-                    <div class="mt-6">
-                        <a href="sales_analysis.html" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
-                            View WebApp / Code
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        </a>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">Electronics Store Sales</h3>
+                        <p class="text-sm text-slate-600 mt-2 mb-4 line-clamp-3">Revenue growth analysis identifying peak sales hours and frequent itemsets.</p>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">Pandas</span>
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">Analytics</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
-                <!-- Project Card 3: COVID-19 Data Exploration -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-lg transition duration-300 border border-slate-200 hover:border-indigo-500">
-                    <span class="text-4xl text-red-600 mb-4 block">🦠</span>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Data Exploration: Two years of COVID-19</h3>
-                    <p class="text-slate-600 mb-4 text-sm">Comprehensive analysis of two years of pandemic data to track key metrics like total cases, deaths, and vaccination rates using robust MySQL computations.</p>
-                    <div class="flex flex-wrap gap-2 text-xs font-medium mt-4">
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">MySQL</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Tableau Visualization</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Data Cleaning</span>
+                <!-- Project 3 -->
+                <a href="https://github.com/dquerales/DanielPortfolio/blob/main/two_years_of_covid.html" target="_blank" class="group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 border border-slate-200 hover:border-indigo-500 transition-all duration-300 overflow-hidden h-full">
+                    <div class="h-40 bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <span class="text-4xl">🦠</span>
                     </div>
-                    <div class="mt-6">
-                        <a href="two_years_of_covid.html" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
-                            View WebApp / Code
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        </a>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">COVID-19 Data Exploration</h3>
+                        <p class="text-sm text-slate-600 mt-2 mb-4 line-clamp-3">Comprehensive analysis of 2 years of pandemic data using complex SQL queries and Tableau.</p>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">MySQL</span>
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">Tableau</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
-                <!-- Project Card 4: Linear Regression Model (Inferred from path) -->
-                <div class="project-card bg-white p-6 rounded-xl shadow-lg transition duration-300 border border-slate-200 hover:border-indigo-500">
-                    <span class="text-4xl text-blue-500 mb-4 block">📈</span>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">Linear Regression Model</h3>
-                    <p class="text-slate-600 mb-4 text-sm">A web-based demonstration of a core predictive model, illustrating the foundational principles of regression analysis and feature impact visualization.</p>
-                    <div class="flex flex-wrap gap-2 text-xs font-medium mt-4">
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Regression</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Python/SKLearn</span>
-                        <span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">Data Modeling</span>
+                <!-- Project 4 -->
+                <a href="https://github.com/dquerales/DanielPortfolio/blob/main/linear_regression.html" target="_blank" class="group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl hover:shadow-indigo-500/10 border border-slate-200 hover:border-indigo-500 transition-all duration-300 overflow-hidden h-full">
+                    <div class="h-40 bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                        <span class="text-4xl">📈</span>
                     </div>
-                    <div class="mt-6">
-                        <a href="linear_regression.html" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center">
-                            View WebApp / Code
-                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        </a>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">Linear Regression Model</h3>
+                        <p class="text-sm text-slate-600 mt-2 mb-4 line-clamp-3">Foundational predictive modeling demo illustrating regression principles.</p>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">Sklearn</span>
+                            <span class="px-2 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded">Modeling</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
             </div>
         </div>
     </section>
 
-    <!-- Call to Action / Contact Section -->
-    <section id="contact" class="py-16 md:py-20 bg-slate-100 border-t border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-extrabold text-slate-900">Let's Build Something Data-Driven.</h2>
-            <p class="mt-4 text-xl text-slate-700 max-w-2xl mx-auto">
-                I'm currently available for new opportunities and collaborations in Data Science and Machine Learning.
+    <!-- Call to Action -->
+    <section id="contact" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-slate-900 z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900 to-slate-900 z-0"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Ready to scale your data capabilities?</h2>
+            <p class="text-lg text-indigo-200 mb-10 max-w-2xl mx-auto">
+                I am currently open to new opportunities in Data Engineering and Data Science.
             </p>
-            <div class="mt-8 flex justify-center space-x-6">
-                <!-- Contact Me button links to mailto: -->
-                <a href="mailto:d.querales@gmail.com" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-8 rounded-xl transition duration-300 shadow-xl shadow-indigo-500/50">
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="mailto:d.querales@gmail.com" class="px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl shadow-xl hover:bg-indigo-50 transition transform hover:-translate-y-1">
                     Email Me Directly
                 </a>
-                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="bg-slate-300 hover:bg-slate-400 text-slate-800 font-semibold py-3 px-8 rounded-xl transition duration-300 shadow-lg">
-                    Connect on LinkedIn
-                </a>
-            </div>
-            
-            <!-- Social Links in Contact Section -->
-            <div class="mt-8 flex justify-center space-x-6">
-                <a href="https://github.com/dquerales" target="_blank" title="GitHub Profile" class="text-slate-600 hover:text-indigo-600 transition">
-                    <span class="sr-only">GitHub</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 3.5c-.17-.65-1.25-.8-1.55-.8c-1 0-2 0-3 0-1 0-2 0-3 0a5.07 5.07 0 00-.09-1.27A5.44 5.44 0 0012 2c-3 0-5.5 1.5-5.5 5.5A5.44 5.44 0 006.09 9.5c.3.0.6.0.9.0a8.88 8.88 0 003.11.87v3.87c-2.45.11-4.9-.76-7-3-2 .5-4 2.5-7 3"></path>
-                    </svg>
-                </a>
-                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" title="LinkedIn Profile" class="text-slate-600 hover:text-indigo-600 transition">
-                    <span class="sr-only">LinkedIn</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
+                <div class="flex items-center gap-6">
+                    <a href="https://github.com/dquerales" target="_blank" class="text-indigo-200 hover:text-white transition">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="text-indigo-200 hover:text-white transition">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
-            &copy; 2025 Daniel Querales. | <a href="mailto:d.querales@gmail.com" class="hover:text-indigo-600">d.querales@gmail.com</a>
+    <footer class="bg-slate-900 border-t border-slate-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">
+                &copy; 2025 Daniel Querales. 
+                <span class="block sm:inline mt-2 sm:mt-0">Built with <span class="text-indigo-500">❤️</span> and Data.</span>
+            </p>
         </div>
     </footer>
 
