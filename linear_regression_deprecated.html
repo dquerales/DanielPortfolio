@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Analysis: Electronics Store | Daniel Querales</title>
+    <title>Stock Price Prediction | Daniel Querales</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -42,11 +42,26 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        /* Custom styling for Flourish embeds to ensure spacing */
-        .flourish-container {
-            margin-bottom: 2.5rem;
-            border-radius: 0.5rem;
+        /* Responsive Iframe Container */
+        .iframe-container {
+            position: relative;
             overflow: hidden;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e2e8f0;
+            background: white;
+            margin-bottom: 2rem;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -55,7 +70,7 @@
     <!-- Decorative Background Blobs -->
     <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div class="blob bg-indigo-300 w-96 h-96 rounded-full top-0 right-0 -mr-20 -mt-20"></div>
-        <div class="blob bg-lime-200 w-80 h-80 rounded-full bottom-0 left-0 -ml-20 -mb-20"></div>
+        <div class="blob bg-emerald-200 w-80 h-80 rounded-full bottom-0 left-0 -ml-20 -mb-20"></div>
     </div>
 
     <!-- Navigation Bar -->
@@ -94,10 +109,12 @@
         <!-- Article Header -->
         <article class="bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 overflow-hidden">
             
-            <!-- Featured Image -->
-            <div class="h-48 md:h-80 relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Data Analysis Header" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+            <!-- Featured Image Placeholder (Since original images are missing, using a stylized header) -->
+            <div class="h-48 md:h-64 bg-gradient-to-r from-slate-800 to-slate-900 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div class="text-center z-10 p-6">
+                    <span class="text-6xl mb-2 block">📈</span>
+                </div>
             </div>
 
             <div class="p-8 md:p-12">
@@ -105,14 +122,14 @@
                 <!-- Title & Meta -->
                 <header class="mb-10 border-b border-slate-100 pb-10">
                     <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading leading-tight">
-                        Sales Analysis: <span class="text-gradient">Electronics Store</span>
+                        Predicting Stock Prices with <span class="text-gradient">Linear Regression</span>
                     </h1>
                     <div class="flex flex-wrap items-center gap-4 text-sm text-slate-500">
                         <div class="flex items-center gap-2">
-                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wide">Data Analysis</span>
+                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wide">Machine Learning</span>
                         </div>
                         <span class="hidden sm:inline">&bull;</span>
-                        <time datetime="2022-01-30">January 30, 2022</time>
+                        <time datetime="2022-01-19">January 19, 2022</time>
                         <span class="hidden sm:inline">&bull;</span>
                         <span class="flex items-center gap-2">
                             <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">DQ</span>
@@ -120,7 +137,7 @@
                         </span>
                     </div>
                     <p class="mt-6 text-xl text-slate-600 leading-relaxed">
-                        A comprehensive analysis of sales records from an electronics store to identify revenue growth opportunities, evaluating performance by product, city, and time using Python and Flourish.
+                        A machine learning project to predict Tesla (TSLA) Stock Prices using Python libraries like Pandas, Numpy, SKlearn, and Plotly.
                     </p>
                 </header>
 
@@ -129,91 +146,92 @@
                     
                     <h2 class="text-2xl font-bold text-slate-900 mb-4">Project Overview</h2>
                     <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8 bg-slate-50 p-6 rounded-xl border border-slate-100">
-                        <li>Analysis of sales records from an electronics store.</li>
-                        <li>Sales evaluated by product, city, and time dimensions.</li>
-                        <li><strong>Educational Purpose:</strong> Demonstration of data analysis techniques.</li>
-                        <li><strong>Tools Used:</strong> Python (Pandas, Numpy) and Flourish Studio.</li>
+                        <li>Analysis of Tesla stock price dataset (2020 to 2022).</li>
+                        <li>Linear regression method used to predict prices using historic values.</li>
+                        <li>Tools used: <strong>Pandas, Numpy, Plotly, Sk-Learn</strong>.</li>
+                        <li>Data source: <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank" class="text-indigo-600 hover:underline">Yahoo Finance API</a>.</li>
+                        <li><strong>Educational Purpose Only:</strong> Not investment advice.</li>
                         <li>Code available on <a href="https://github.com/dquerales/DataScience" target="_blank" class="text-indigo-600 hover:underline font-semibold">GitHub Repository</a>.</li>
                     </ul>
 
                     <h2 class="text-2xl font-bold text-slate-900 mb-4">Objectives</h2>
                     <p class="text-slate-600 mb-8">
-                        The goal is to build a report that analyzes sales performance to understand what strategies can be implemented to increase profits.
+                        The goal was to train a machine learning model that attempts to predict Tesla (TSLA) stock prices over a two-year range to understand how the pandemic affected the company's performance.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Data Transformation</h2>
-                    <p class="text-slate-600 mb-12">
-                        Data was obtained from multiple CSV files (one for each month), imported into a Jupyter Notebook, and then cleaned and prepared for analysis.
-                    </p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Data Analysis & Visualization</h2>
 
-                    <h2 class="text-2xl font-bold text-slate-900 mb-8">Key Business Questions</h2>
-
-                    <!-- Question A -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">a) How much was the total sales amount?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed" data-src="visualisation/8960836"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <!-- Chart 1: Candle Chart -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Candle Chart</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/1.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
-                    <!-- Question B -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">b) Which months had the highest sales?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed flourish-chart" data-src="visualisation/8960893"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <!-- Chart 2: Adjusted Close -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Adjusted Close Price</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/5.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
-                    <!-- Question C -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">c) Which day of the week was the best performer?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed flourish-chart" data-src="visualisation/8978859"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <!-- Chart 3: Volume -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Trading Volume</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/9.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
-                    <!-- Question D -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">d) What is the best hour to sell our products?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed flourish-chart" data-src="visualisation/8960919"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <!-- Chart 4: Market Cap -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Market Capitalization</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/11.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
-                    <!-- Question E -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">e) How were sales distributed by city?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed flourish-chart" data-src="visualisation/8967956"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <!-- Chart 5: Volatility -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Volatility</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/15.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
-                    <!-- Question F -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">f) Which are our most popular items sold?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed flourish-hierarchy" data-src="visualisation/8960931"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <!-- Chart 6: Moving Averages -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Moving Averages (50-200 days)</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/13.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
-                    <!-- Question G -->
-                    <div class="mb-12">
-                        <h3 class="text-lg font-semibold text-slate-800 mb-3">g) Which items are often sold together?</h3>
-                        <div class="flourish-container shadow-sm border border-slate-200">
-                            <div class="flourish-embed" data-src="visualisation/8961005"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-6">Machine Learning Model</h2>
+                    
+                    <!-- Chart 7: Linear Regression -->
+                    <div class="mb-8">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-3">Linear Regression Prediction</h3>
+                        <div class="iframe-container">
+                            <iframe src="//plotly.com/~danielquerales/19.embed" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
 
                     <h2 class="text-2xl font-bold text-slate-900 mb-4">Conclusions</h2>
                     <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 text-slate-700">
                         <ul class="list-disc list-inside space-y-2">
-                            <li><strong>Total Sales:</strong> Approximately $35 Million USD.</li>
-                            <li><strong>Best Months:</strong> October and December drove the highest revenue.</li>
-                            <li><strong>Best Day:</strong> Tuesday showed the strongest sales performance.</li>
-                            <li><strong>Peak Hours:</strong> 12:00 PM and 7:00 PM (19:00) are optimal times for sales.</li>
-                            <li><strong>Top Region:</strong> Sales in California significantly outperformed other states.</li>
-                            <li><strong>Top Product:</strong> The MacBook Pro Laptop was the most popular item.</li>
-                            <li><strong>Bundle Trends:</strong> Phones, headphones, and USB-C cables are frequently purchased together.</li>
+                            <li>The adjusted close price showed a consistent positive slope during the study period.</li>
+                            <li><strong>All-time High:</strong> $1,243 on 2021-11-04.</li>
+                            <li><strong>All-time Low:</strong> $70 on 2020-03-18.</li>
+                            <li><strong>Max Volume:</strong> 304M on 2020-02-04, with spikes in Feb, July, and Dec 2020.</li>
+                            <li>Market capitalization peaked on December 18, 2020.</li>
+                            <li>Daily volatility averaged around <strong>5%</strong>.</li>
+                            <li>The 50-200 day moving averages remained positive for the majority of the timeframe.</li>
+                            <li>An investment at the start of 2020 would have yielded an approximate <strong>800% return</strong> by the end of the study.</li>
+                            <li>The Linear Regression model achieved roughly <strong>98% accuracy</strong> on test values.</li>
+                            <li><em>Note: Real-world market volatility makes simple linear models insufficient for accurate future forecasting.</em></li>
                         </ul>
                     </div>
 

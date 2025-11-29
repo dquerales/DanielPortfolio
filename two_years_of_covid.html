@@ -1,231 +1,280 @@
-<!DOCTYPE HTML>
-<!--
-	Future Imperfect by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Data Exploration: Two years of COVID</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-		<link rel="manifest" href="images/site.webmanifest">
-	</head>
-	<body class="single is-preload">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Exploration: Two years of COVID-19 | Daniel Querales</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts (Matching Sales Analysis) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS from Sales Analysis Example */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        /* Gradient for project title accent */
+        .text-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Decorative Background Blobs (Optional, but included for fidelity) */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: pulse 10s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Consistent styles for article content */
+        .prose-custom h1, .prose-custom h2, .prose-custom h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #1e293b; /* Slate-800 */
+        }
+        .prose-custom h1 { font-size: 2.25rem; } /* 3xl */
+        .prose-custom h2 { font-size: 1.875rem; } /* 2xl */
+        .prose-custom h3 { font-size: 1.5rem; } /* xl */
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        /* Style for the code blocks, matching dark theme */
+        pre {
+            background-color: #1f2937; /* Gray-800 for dark code background */
+            color: #f3f4f6; /* Light gray text */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        code {
+            font-size: 0.875rem; /* sm */
+        }
 
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Daniel Querales</a></h1>
-						
-						<nav class="links">
-							<ul>
-							<li><a href="resume.html" target="blank">Resume</a></li>
-							<li><a href="https://www.linkedin.com/in/danielquerales/" target="blank">LinkedIn</a></li>
-							<li><a href="https://github.com/dquerales" target="blank">GitHub</a></li>
-							<li><a href="mailto:d.querales@gmail.com" target="blank">Contact Me</a></li>
-							</ul>
-						</nav>
-						<!--
-						<nav class="main">
-							<ul>
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
-								<li class="menu">
-									<a class="fa-bars" href="#menu">Menu</a>
-								</li>
-							</ul>
-						</nav>  -->
-					</header>
+        /* Styling for list items and links within content, matching the template */
+        .prose-custom ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .prose-custom a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .prose-custom a:hover {
+            color: var(--primary-dark);
+        }
 
-				<!-- Menu -->
-				<section id="menu">
+    </style>
+</head>
+<body class="text-slate-800 antialiased overflow-x-hidden">
 
-					<!-- Search -->
-						<section>
-							<form class="search" method="get" action="#">
-								<input type="text" name="query" placeholder="Search" />
-							</form>
-						</section>
+    <!-- Decorative Background Blobs (Consistent with Sales Analysis) -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="blob bg-indigo-300 w-96 h-96 rounded-full top-0 right-0 -mr-20 -mt-20"></div>
+        <div class="blob bg-lime-200 w-80 h-80 rounded-full bottom-0 left-0 -ml-20 -mb-20"></div>
+    </div>
 
-					<!-- Links -->
-						<section>
-							<ul class="links">
-								<li>
-									<a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin" target="_blank"><span class="label">Linkedin</span>
-										Daniel Querales
-										<p>My Linkedin Profile</p>
-									</a>
-								</li>
-								<li>
-									<a href="https://github.com/dquerales" class="icon brands fa-github" target="_blank"><span class="label">Github</span>
-										dquerales
-										<p>My Github Repository</p>
-									</a>
-								</li>
-								<li>
-									<a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" target="_blank"><span class="label">Email</span>
-										d.querales@gmail.com
-										<p>My email address</p>
-									</a>
-								</li>
-							</ul>
-						</section>
+    <!-- Navigation Bar (Consistent with Sales Analysis) -->
+    <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold font-heading tracking-tight flex items-center gap-2 group">
+                <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm group-hover:bg-indigo-700 transition">DQ</span>
+                <span class="text-slate-900 group-hover:text-indigo-600 transition">Daniel Querales</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html#skills" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Expertise</a>
+                <a href="index.html#projects" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Projects</a>
+                <a href="index.html#contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
+            </div>
 
-					<!-- Actions -->
-					<!-- 
-						<section>
-							<ul class="actions stacked">
-								<li><a href="#" class="button large fit">Log In</a></li>
-							</ul>
-						</section>
-					-->
-				</section>
+            <div class="flex items-center space-x-3">
+                <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.48 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition">
+                    LinkedIn
+                </a>
+            </div>
+        </nav>
+    </header>
 
-				<!-- Main -->
-					<div id="main">
+    <main class="pt-28 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Breadcrumb / Back Link (Consistent with Sales Analysis) -->
+        <a href="index.html" class="inline-flex items-center text-indigo-600 font-semibold mb-8 hover:text-indigo-800 transition group">
+            <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to Portfolio
+        </a>
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">Data Exploration: Two years of COVID</a></h2>
-										<p>A data exploration project of the COVID-19 dataset using tools like SQL and Tableau.</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2021-01-02">January 2, 2022</time>
-										<a href="#" class="author"><span class="name">Daniel Querales</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<span class="image featured"><img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1032&q=80" alt="" /></span>
+        <!-- Article Container (Consistent with Sales Analysis) -->
+        <article class="bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 overflow-hidden">
+            
+            <!-- Featured Image -->
+            <div class="h-48 md:h-80 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                     alt="Microscopic image of a virus, representing the COVID project" 
+                     class="w-full h-full object-cover"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1200x320/1f2937/ffffff?text=COVID-19+Data+Project+Image+Placeholder';" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+            </div>
 
-								<h1>
-									Project overview
-								</h1>
+            <div class="p-8 md:p-12">
+                
+                <!-- Title & Meta (Consistent with Sales Analysis) -->
+                <header class="mb-10 border-b border-slate-100 pb-10">
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading leading-tight">
+                        Data Exploration: <span class="text-gradient">Two years of COVID</span>
+                    </h1>
+                    <div class="flex flex-wrap items-center gap-4 text-sm text-slate-500">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wide">Data Exploration</span>
+                        </div>
+                        <span class="hidden sm:inline">&bull;</span>
+                        <time datetime="2022-01-02">January 2, 2022</time>
+                        <span class="hidden sm:inline">&bull;</span>
+                        <span class="flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">DQ</span>
+                            Daniel Querales
+                        </span>
+                    </div>
+                    <p class="mt-6 text-xl text-slate-600 leading-relaxed">
+                        A data exploration project of the COVID-19 dataset using tools like SQL and Tableau to understand how the global pandemic developed between 2020 and 2021.
+                    </p>
+                </header>
 
-								<ul>
-									<li>This is a Data Exploration Project of the COVID-19 dataset (from 2020 to 2021).</li>
-									<li>I explore the values of total cases, total deaths & people fully vaccinated.</li>
-									<li>The project was made for educational purpose and his values can be easily compared with <a href="https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en" target="_blank">Google
-									Coronavirus (COVID-19)</a> dashboard.</li>
-									<li>The tools used are SQL Server and Tableau Public.</li>
-									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience" target="_blank">GitHub
-										Repository.</a></li>
-								</ul>
+                <!-- Project Content -->
+                <div class="prose-custom max-w-none">
+                    
+                    <h2 class="mb-4">Project Overview</h2>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8 bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <li>This is a Data Exploration Project of the COVID-19 dataset (from 2020 to 2021).</li>
+                        <li>I explore the values of total cases, total deaths &amp; people fully vaccinated.</li>
+                        <li>The project was made for educational purpose and its values can be easily compared with <a href="https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en" target="_blank">Google Coronavirus (COVID-19)</a> dashboard.</li>
+                        <li><strong>Tools Used:</strong> SQL Server and Tableau Public.</li>
+                        <li>Code available on <a href="https://github.com/dquerales/DataScience" target="_blank">GitHub Repository.</a></li>
+                    </ul>
 
-								<h1>
-									Objectives
-								</h1>
+                    <h2 class="mb-4">Objectives</h2>
+                    <p class="text-slate-600 mb-8">
+                        The goal is to build a report that shows summarized information about the deaths, cases and vaccinations corresponding to the period of 2020-2021 to understand how the pandemic is currently developing in the world.
+                    </p>
 
-								<p> The goal is to build a report that shows summarized information about the deaths, cases and vaccinations
-									corresponding to the period of 2020-2021 to understand how the pandemic is currently developing in the world. </p>
+                    <h2 class="mb-4">Data Transformation and Data Preparation</h2>
+                    <h3 class="mb-2">Importing data</h3>
+                    <p class="text-slate-600 mb-12">
+                        All the data was taken from the <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World in Data</a> COVID-19 dataset. It was obtained as a .csv, imported to a SQL server, then exposed to specific queries to extract the information wanted. At last, the results were imported to Tableau Public and represented using a dashboard.
+                    </p>
 
-                                <h1>
-									Data transformation and data preparation
-								</h1>
+                    <h2 class="mb-8">Asking the Questions (SQL)</h2>
 
-								<h3>
-									Importing data
-								</h3>
+                    <div class="space-y-10">
+                        <!-- Query A -->
+                        <div class="code-block">
+                            <h3 class="mb-3">a) How many total cases exist? What are the total of deaths?</h3>
+                            <pre><code>SELECT MAX(total_cases) AS TotalCases, MAX(total_deaths) AS TotalDeaths, (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPercentage 
+FROM clean_owid_covid;</code></pre>
+                        </div>
 
-								<p> All the data was taken from the <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World
-									in Data</a> COVID-19 dataset. It was obtained as a .csv, imported to a SQL server, then expose to specific queries
-								    to extract the information wanted. At last, the results were imported to Tableau Public and represented using a dashboard.</p>
-								
-								<h1> Asking the Questions </h1>
-
-<h2> a) How many total cases exists? What are the total of deaths?</h2>
-
-<pre><code>SELECT MAX(total_cases) AS TotalCases,  MAX(total_deaths) AS TotalDeaths, (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPercentage 
-FROM clean_owid_covid;  </code></pre>
-
-<h2> b) How many people are fully vaccinated?</h2>
-
-<pre><code>SELECT MAX(population) AS WorldPopulation, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated, 
+                        <!-- Query B -->
+                        <div class="code-block">
+                            <h3 class="mb-3">b) How many people are fully vaccinated?</h3>
+                            <pre><code>SELECT MAX(population) AS WorldPopulation, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated, 
     MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccinationPercentage
-FROM clean_owid_covid;  </code></pre>
-
-<h2> c) How many new cases we had per date? </h2>
-
-<pre><code>SELECT date, MAX(new_cases) AS NewCases 
+FROM clean_owid_covid;</code></pre>
+                        </div>
+                        
+                        <!-- Query C -->
+                        <div class="code-block">
+                            <h3 class="mb-3">c) How many new cases we had per date?</h3>
+                            <pre><code>SELECT date, MAX(new_cases) AS NewCases 
 FROM clean_owid_covid 
 GROUP BY date 
-ORDER BY date; </code></pre>
+ORDER BY date;</code></pre>
+                        </div>
 
-<h2> d) Which are the countries with most deaths? </h2>	
-
-<pre><code>SELECT location, MAX(total_deaths) AS TotalDeaths FROM clean_owid_covid
+                        <!-- Query D -->
+                        <div class="code-block">
+                            <h3 class="mb-3">d) Which are the countries with most deaths?</h3>
+                            <pre><code>SELECT location, MAX(total_deaths) AS TotalDeaths FROM clean_owid_covid
 WHERE continent IS NOT NULL
 GROUP BY location
 ORDER BY TotalDeaths DESC
-LIMIT 5; </pre></code>
+LIMIT 5;</code></pre>
+                        </div>
 
-<h2> e) How fast the vaccination goes? </h2>
-
-<pre><code>SELECT location, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated,
+                        <!-- Query E -->
+                        <div class="code-block">
+                            <h3 class="mb-3">e) How fast the vaccination goes?</h3>
+                            <pre><code>SELECT location, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated,
     MAX(people_fully_vaccinated)/MAX(population)*100 AS PercentagePeopleFullyVaccinated
 FROM clean_owid_covid
 WHERE continent IS NOT NULL
 GROUP BY location
-ORDER BY PeopleFullyVaccinated DESC; </code></pre>
+ORDER BY PeopleFullyVaccinated DESC;</code></pre>
+                        </div>
+                    </div>
+                    
+                    <h2 class="mt-12 mb-8">Results (Dashboard Visualization)</h2>
+                    <!-- Tableau Placeholder styled as a prominent Flourish container -->
+                    <div class="flourish-container shadow-xl border-4 border-indigo-200 bg-indigo-50 p-10 rounded-xl text-center">
+                        <i class="fa-solid fa-chart-area text-7xl text-indigo-600 mb-6"></i>
+                        <p class="text-2xl font-semibold text-slate-800 mb-3 font-heading">Tableau Visualization Placeholder</p>
+                        <p class="text-slate-600 mb-6">The interactive Tableau dashboard for "Two years of COVID 2020-2021" is embedded here in the original project.</p>
+                        <a href="https://public.tableau.com/profile/daniel.querales#!/vizhome/TwoyearsofCOVID2020-2021/Dashboard1" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
+                            View External Dashboard
+                        </a>
+                    </div>
+                    <p class="h-4"></p>
 
-                                <h1>Results</h1>	
-								<div class="image featured" id='viz1641518864465' style='position: relative;'><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='TwoyearsofCOVID2020-2021&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1641518864465');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.minWidth='420px';vizElement.style.maxWidth='650px';vizElement.style.width='100%';vizElement.style.minHeight='587px';vizElement.style.maxHeight='887px';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1327px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
-								<p> </p>
-								<h1>Conclusions</h1>
-								<ul>
-									<li>Only 1.8% percent of the total cases resulted in deaths.</li>
-									<li>By the start of 2022, half of the world population are fully vaccinated.</li>
-									<li>US is the country with the most deaths with 824K.</li>
-									<li>At the end of 2021, we had a spike in new cases to 1.9 M in a single day.</li>
-									<li>China has the most population fully vaccinated, with 83.6%. </li>
-								</ul>
 
-								<footer>
-									<ul class="stats">
-										<li><a href="#">Data Exploration</a></li>
-										<!--
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-										-->
-									</ul>
-								</footer>
-							</article>
+                    <h2 class="mt-12 mb-4">Conclusions</h2>
+                    <!-- Conclusions block styled as a prominent block, matching the Sales Analysis template -->
+                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 text-slate-700 shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Death Rate:</strong> Only 1.8% percent of the total cases resulted in deaths.</li>
+                            <li><strong>Vaccination Coverage:</strong> By the start of 2022, half of the world population are fully vaccinated.</li>
+                            <li><strong>Top Deaths:</strong> US is the country with the most deaths with 824K.</li>
+                            <li><strong>Case Spike:</strong> At the end of 2021, we had a spike in new cases to 1.9 M in a single day.</li>
+                            <li><strong>Top Vaccination Rate:</strong> China has the most population fully vaccinated, with 83.6%.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
 
-					</div>
+    <!-- Footer (Consistent with Sales Analysis) -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">
+                &copy; 2025 Daniel Querales. 
+                <span class="block sm:inline mt-2 sm:mt-0">Built with <span class="text-indigo-500">❤️</span> and Data.</span>
+            </p>
+        </div>
+    </footer>
 
-				<!-- Footer -->
-					<section id="footer">
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-							<li><a href="https://github.com/dquerales" class="icon brands fa-github" ><span class="label">Github</span></a></li>
-							<!-- <li><a href="#" class="icon brands fa-twitter"><span class="label" >Twitter</span></a></li> -->
-							<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-							<!-- <li><a href="#" class="icon brands fa-instagram"><span class="label" >Instagram</span></a></li> -->
-							<!-- <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li> -->
-							<li><a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" ><span class="label">Email</span></a></li>
-						</ul>
-						<p class="copyright">&copy; 2022 Daniel Querales. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</section>
-
-			</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+</body>
 </html>
