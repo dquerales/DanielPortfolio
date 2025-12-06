@@ -8,10 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts (Matching Sales Analysis) -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS from Sales Analysis Example */
         :root {
             --primary: #4f46e5;
             --primary-dark: #4338ca;
@@ -29,53 +28,59 @@
         h1, h2, h3, h4, .font-heading {
             font-family: 'Outfit', sans-serif;
         }
-        /* Gradient for project title accent */
         .text-gradient {
             background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Decorative Background Blobs (Optional, but included for fidelity) */
-        .blob {
-            position: absolute;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: pulse 10s infinite;
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
         }
-        
-        /* Consistent styles for article content */
+
+        /* Typography refinements */
         .prose-custom h1, .prose-custom h2, .prose-custom h3 {
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            color: #1e293b; /* Slate-800 */
+            color: #1e293b;
         }
-        .prose-custom h1 { font-size: 2.25rem; } /* 3xl */
-        .prose-custom h2 { font-size: 1.875rem; } /* 2xl */
-        .prose-custom h3 { font-size: 1.5rem; } /* xl */
+        /* Responsive Font Sizes */
+        .prose-custom h1 { font-size: 1.75rem; line-height: 1.2; } /* Mobile default */
+        @media (min-width: 768px) { .prose-custom h1 { font-size: 2.25rem; } }
 
-        /* Style for the code blocks, matching dark theme */
+        .prose-custom h2 { font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+        @media (min-width: 768px) { .prose-custom h2 { font-size: 1.875rem; margin-top: 2rem; margin-bottom: 1rem; } }
+
+        .prose-custom h3 { font-size: 1.25rem; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+        @media (min-width: 768px) { .prose-custom h3 { font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; } }
+
         pre {
-            background-color: #1f2937; /* Gray-800 for dark code background */
-            color: #f3f4f6; /* Light gray text */
+            background-color: #1f2937;
+            color: #f3f4f6;
             padding: 1rem;
             border-radius: 0.5rem;
-            overflow-x: auto;
+            overflow-x: auto; /* Critical for mobile */
             font-family: monospace;
+            margin-bottom: 1.5rem;
+            font-size: 0.8rem; /* Slightly smaller code font on mobile */
         }
-        code {
-            font-size: 0.875rem; /* sm */
-        }
+        @media (min-width: 768px) { pre { font-size: 0.875rem; } }
 
-        /* Styling for list items and links within content, matching the template */
         .prose-custom ul {
             list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 2rem;
+            padding-left: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .prose-custom p {
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
         }
         .prose-custom a {
             color: var(--primary);
@@ -85,82 +90,112 @@
         .prose-custom a:hover {
             color: var(--primary-dark);
         }
-
     </style>
 </head>
 <body class="text-slate-800 antialiased overflow-x-hidden">
 
-    <!-- Decorative Background Blobs (Consistent with Sales Analysis) -->
-    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div class="blob bg-indigo-300 w-96 h-96 rounded-full top-0 right-0 -mr-20 -mt-20"></div>
-        <div class="blob bg-lime-200 w-80 h-80 rounded-full bottom-0 left-0 -ml-20 -mb-20"></div>
-    </div>
+    <!-- Navigation Bar -->
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="h-16 flex justify-between items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold group-hover:bg-indigo-700 transition flex-shrink-0">DQ</span>
+                    <span class="text-slate-900 font-bold group-hover:text-indigo-600 transition">Daniel Querales</span>
+                </a>
+                
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html#skills" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Expertise</a>
+                    <a href="index.html#projects" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Projects</a>
+                    <a href="index.html#contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
+                </div>
 
-    <!-- Navigation Bar (Consistent with Sales Analysis) -->
-    <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-all duration-300">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold font-heading tracking-tight flex items-center gap-2 group">
-                <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm group-hover:bg-indigo-700 transition">DQ</span>
-                <span class="text-slate-900 group-hover:text-indigo-600 transition">Daniel Querales</span>
-            </a>
-            
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html#skills" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Expertise</a>
-                <a href="index.html#projects" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Projects</a>
-                <a href="index.html#contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
+                <!-- Desktop Icons/Button -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition">
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition">
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-slate-600 hover:text-indigo-600 p-2 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="flex items-center space-x-3">
-                <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.48 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-                </a>
-                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition">
-                    LinkedIn
-                </a>
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="md:hidden border-t border-slate-100 bg-white shadow-lg rounded-b-xl absolute left-0 right-0 top-16 px-4 pb-4">
+                <div class="flex flex-col space-y-3 pt-4">
+                    <a href="index.html#skills" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50">Expertise</a>
+                    <a href="index.html#projects" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50">Projects</a>
+                    <a href="index.html#contact" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-indigo-600 hover:bg-slate-50">Contact</a>
+                    <div class="border-t border-slate-100 my-2 pt-2 flex flex-col space-y-2">
+                        <a href="https://github.com/dquerales" target="_blank" class="flex items-center px-3 py-2 text-slate-600 hover:text-indigo-600">
+                            <i class="fab fa-github mr-2"></i> GitHub Profile
+                        </a>
+                        <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="flex items-center px-3 py-2 text-indigo-600 font-semibold bg-indigo-50 rounded-lg">
+                            <i class="fab fa-linkedin mr-2"></i> LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
 
-    <main class="pt-28 pb-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="pt-24 pb-12 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         
-        <!-- Breadcrumb / Back Link (Consistent with Sales Analysis) -->
-        <a href="index.html" class="inline-flex items-center text-indigo-600 font-semibold mb-8 hover:text-indigo-800 transition group">
+        <!-- Breadcrumb / Back Link -->
+        <a href="index.html" class="inline-flex items-center text-indigo-600 font-semibold mb-6 hover:text-indigo-800 transition group text-sm sm:text-base">
             <svg class="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
             Back to Portfolio
         </a>
 
-        <!-- Article Container (Consistent with Sales Analysis) -->
-        <article class="bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 overflow-hidden">
+        <!-- Article Container -->
+        <article class="bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 overflow-hidden w-full">
             
             <!-- Featured Image -->
-            <div class="h-48 md:h-80 relative overflow-hidden">
+            <div class="h-40 sm:h-64 md:h-80 relative overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
-                     alt="Microscopic image of a virus, representing the COVID project" 
+                     alt="Microscopic image of a virus" 
                      class="w-full h-full object-cover"
-                     onerror="this.onerror=null;this.src='https://placehold.co/1200x320/1f2937/ffffff?text=COVID-19+Data+Project+Image+Placeholder';" />
+                     onerror="this.onerror=null;this.src='https://placehold.co/1200x320/1f2937/ffffff?text=COVID-19+Data+Project';" />
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
             </div>
 
-            <div class="p-8 md:p-12">
+            <!-- Content Body: Responsive Padding -->
+            <div class="p-5 sm:p-8 md:p-12">
                 
-                <!-- Title & Meta (Consistent with Sales Analysis) -->
-                <header class="mb-10 border-b border-slate-100 pb-10">
-                    <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading leading-tight">
-                        Data Exploration: <span class="text-gradient">Two years of COVID</span>
+                <!-- Title & Meta -->
+                <header class="mb-8 border-b border-slate-100 pb-8">
+                    <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading leading-tight break-words">
+                        Data Exploration: <br class="sm:hidden"><span class="text-gradient">Two years of COVID</span>
                     </h1>
-                    <div class="flex flex-wrap items-center gap-4 text-sm text-slate-500">
+                    
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-sm text-slate-500 mt-4">
                         <div class="flex items-center gap-2">
                             <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wide">Data Exploration</span>
                         </div>
-                        <span class="hidden sm:inline">&bull;</span>
-                        <time datetime="2022-01-02">January 2, 2022</time>
-                        <span class="hidden sm:inline">&bull;</span>
-                        <span class="flex items-center gap-2">
-                            <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">DQ</span>
-                            Daniel Querales
-                        </span>
+                        <div class="flex items-center gap-2">
+                            <span class="hidden sm:inline">&bull;</span>
+                            <i class="far fa-calendar-alt sm:hidden"></i>
+                            <time datetime="2022-01-02">Jan 2, 2022</time>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="hidden sm:inline">&bull;</span>
+                            <span class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-slate-600">DQ</span>
+                                Daniel Querales
+                            </span>
+                        </div>
                     </div>
-                    <p class="mt-6 text-xl text-slate-600 leading-relaxed">
+                    
+                    <p class="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed">
                         A data exploration project of the COVID-19 dataset using tools like SQL and Tableau to understand how the global pandemic developed between 2020 and 2021.
                     </p>
                 </header>
@@ -169,47 +204,54 @@
                 <div class="prose-custom max-w-none">
                     
                     <h2 class="mb-4">Project Overview</h2>
-                    <ul class="list-disc list-inside space-y-2 text-slate-600 mb-8 bg-slate-50 p-6 rounded-xl border border-slate-100">
-                        <li>This is a Data Exploration Project of the COVID-19 dataset (from 2020 to 2021).</li>
-                        <li>I explore the values of total cases, total deaths &amp; people fully vaccinated.</li>
-                        <li>The project was made for educational purpose and its values can be easily compared with <a href="https://news.google.com/covid19/map?hl=en-US&gl=US&ceid=US:en" target="_blank">Google Coronavirus (COVID-19)</a> dashboard.</li>
-                        <li><strong>Tools Used:</strong> SQL Server and Tableau Public.</li>
-                        <li>Code available on <a href="https://github.com/dquerales/DataScience" target="_blank">GitHub Repository.</a></li>
-                    </ul>
+                    <div class="bg-slate-50 p-4 sm:p-6 rounded-xl border border-slate-100 mb-8">
+                        <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm sm:text-base mb-0">
+                            <li><strong>Dataset:</strong> COVID-19 (2020-2021).</li>
+                            <li><strong>Key Metrics:</strong> Total cases, deaths & vaccination rates.</li>
+                            <li><strong>Comparison:</strong> Benchmarked against Google's Coronavirus dashboard.</li>
+                            <li><strong>Tech Stack:</strong> SQL Server & Tableau Public.</li>
+                            <li><strong>Code:</strong> Available on <a href="https://github.com/dquerales/DataScience" target="_blank" class="break-all sm:break-normal">GitHub Repository</a>.</li>
+                        </ul>
+                    </div>
 
                     <h2 class="mb-4">Objectives</h2>
-                    <p class="text-slate-600 mb-8">
+                    <p class="text-slate-600 mb-8 text-sm sm:text-base">
                         The goal is to build a report that shows summarized information about the deaths, cases and vaccinations corresponding to the period of 2020-2021 to understand how the pandemic is currently developing in the world.
                     </p>
 
-                    <h2 class="mb-4">Data Transformation and Data Preparation</h2>
-                    <h3 class="mb-2">Importing data</h3>
-                    <p class="text-slate-600 mb-12">
-                        All the data was taken from the <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World in Data</a> COVID-19 dataset. It was obtained as a .csv, imported to a SQL server, then exposed to specific queries to extract the information wanted. At last, the results were imported to Tableau Public and represented using a dashboard.
+                    <h2 class="mb-4">Data Preparation</h2>
+                    <h3 class="mb-2">Importing Data</h3>
+                    <p class="text-slate-600 mb-8 text-sm sm:text-base">
+                        Data sourced from <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World in Data</a>. The process involved extracting data from CSVs, importing into SQL Server, executing queries, and visualizing results in Tableau.
                     </p>
 
-                    <h2 class="mb-8">Asking the Questions (SQL)</h2>
+                    <h2 class="mb-6">Asking the Questions (SQL)</h2>
 
-                    <div class="space-y-10">
+                    <div class="space-y-8">
                         <!-- Query A -->
                         <div class="code-block">
-                            <h3 class="mb-3">a) How many total cases exist? What are the total of deaths?</h3>
-                            <pre><code>SELECT MAX(total_cases) AS TotalCases, MAX(total_deaths) AS TotalDeaths, (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPercentage 
+                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">a) Total Cases vs Total Deaths</h3>
+                            <pre><code class="language-sql">SELECT 
+    MAX(total_cases) AS TotalCases, 
+    MAX(total_deaths) AS TotalDeaths, 
+    (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPct 
 FROM clean_owid_covid;</code></pre>
                         </div>
 
                         <!-- Query B -->
                         <div class="code-block">
-                            <h3 class="mb-3">b) How many people are fully vaccinated?</h3>
-                            <pre><code>SELECT MAX(population) AS WorldPopulation, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated, 
-    MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccinationPercentage
+                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">b) Global Vaccination Stats</h3>
+                            <pre><code class="language-sql">SELECT 
+    MAX(population) AS WorldPop, 
+    MAX(people_fully_vaccinated) AS Vaccinated, 
+    MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccPct
 FROM clean_owid_covid;</code></pre>
                         </div>
                         
                         <!-- Query C -->
                         <div class="code-block">
-                            <h3 class="mb-3">c) How many new cases we had per date?</h3>
-                            <pre><code>SELECT date, MAX(new_cases) AS NewCases 
+                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">c) New Cases Per Date</h3>
+                            <pre><code class="language-sql">SELECT date, MAX(new_cases) AS NewCases 
 FROM clean_owid_covid 
 GROUP BY date 
 ORDER BY date;</code></pre>
@@ -217,8 +259,9 @@ ORDER BY date;</code></pre>
 
                         <!-- Query D -->
                         <div class="code-block">
-                            <h3 class="mb-3">d) Which are the countries with most deaths?</h3>
-                            <pre><code>SELECT location, MAX(total_deaths) AS TotalDeaths FROM clean_owid_covid
+                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">d) Countries with Most Deaths</h3>
+                            <pre><code class="language-sql">SELECT location, MAX(total_deaths) AS TotalDeaths 
+FROM clean_owid_covid
 WHERE continent IS NOT NULL
 GROUP BY location
 ORDER BY TotalDeaths DESC
@@ -227,38 +270,37 @@ LIMIT 5;</code></pre>
 
                         <!-- Query E -->
                         <div class="code-block">
-                            <h3 class="mb-3">e) How fast the vaccination goes?</h3>
-                            <pre><code>SELECT location, MAX(people_fully_vaccinated) AS PeopleFullyVaccinated,
-    MAX(people_fully_vaccinated)/MAX(population)*100 AS PercentagePeopleFullyVaccinated
+                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">e) Vaccination Speed by Location</h3>
+                            <pre><code class="language-sql">SELECT location, 
+    MAX(people_fully_vaccinated) AS PeopleFullyVax,
+    MAX(people_fully_vaccinated)/MAX(population)*100 AS PctFullyVax
 FROM clean_owid_covid
 WHERE continent IS NOT NULL
 GROUP BY location
-ORDER BY PeopleFullyVaccinated DESC;</code></pre>
+ORDER BY PeopleFullyVax DESC;</code></pre>
                         </div>
                     </div>
                     
-                    <h2 class="mt-12 mb-8">Results (Dashboard Visualization)</h2>
-                    <!-- Tableau Placeholder styled as a prominent Flourish container -->
-                    <div class="flourish-container shadow-xl border-4 border-indigo-200 bg-indigo-50 p-10 rounded-xl text-center">
-                        <i class="fa-solid fa-chart-area text-7xl text-indigo-600 mb-6"></i>
-                        <p class="text-2xl font-semibold text-slate-800 mb-3 font-heading">Tableau Visualization Placeholder</p>
-                        <p class="text-slate-600 mb-6">The interactive Tableau dashboard for "Two years of COVID 2020-2021" is embedded here in the original project.</p>
-                        <a href="https://public.tableau.com/profile/daniel.querales#!/vizhome/TwoyearsofCOVID2020-2021/Dashboard1" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md hover:shadow-lg transition transform hover:-translate-y-0.5">
-                            View External Dashboard
+                    <h2 class="mt-12 mb-6">Results (Dashboard)</h2>
+                    
+                    <!-- Tableau Placeholder - Responsive Container -->
+                    <div class="w-full bg-indigo-50 border-4 border-dashed border-indigo-200 rounded-xl p-6 sm:p-10 text-center shadow-inner flex flex-col items-center justify-center">
+                        <i class="fa-solid fa-chart-pie text-5xl sm:text-6xl text-indigo-500 mb-4"></i>
+                        <p class="text-lg sm:text-xl font-bold text-slate-800 mb-2">Interactive Dashboard</p>
+                        <p class="text-sm sm:text-base text-slate-600 mb-6 max-w-md mx-auto">Explore the full interactive Tableau visualization directly on Tableau Public.</p>
+                        <a href="https://public.tableau.com/profile/daniel.querales#!/vizhome/TwoyearsofCOVID2020-2021/Dashboard1" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm sm:text-base font-bold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition transform hover:-translate-y-0.5 w-full sm:w-auto">
+                            View on Tableau Public <i class="fas fa-external-link-alt ml-2"></i>
                         </a>
                     </div>
-                    <p class="h-4"></p>
-
 
                     <h2 class="mt-12 mb-4">Conclusions</h2>
-                    <!-- Conclusions block styled as a prominent block, matching the Sales Analysis template -->
-                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100 text-slate-700 shadow-sm">
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><strong>Death Rate:</strong> Only 1.8% percent of the total cases resulted in deaths.</li>
-                            <li><strong>Vaccination Coverage:</strong> By the start of 2022, half of the world population are fully vaccinated.</li>
-                            <li><strong>Top Deaths:</strong> US is the country with the most deaths with 824K.</li>
-                            <li><strong>Case Spike:</strong> At the end of 2021, we had a spike in new cases to 1.9 M in a single day.</li>
-                            <li><strong>Top Vaccination Rate:</strong> China has the most population fully vaccinated, with 83.6%.</li>
+                    <div class="bg-indigo-50 p-5 sm:p-6 rounded-xl border border-indigo-100 text-slate-700 shadow-sm">
+                        <ul class="list-disc list-inside space-y-3 text-sm sm:text-base">
+                            <li><strong>Mortality Rate:</strong> Approximately 1.8% of total cases resulted in death.</li>
+                            <li><strong>Global Vaccination:</strong> ~50% of the world population fully vaccinated by 2022.</li>
+                            <li><strong>Highest Deaths:</strong> The US reported the highest death toll (824K).</li>
+                            <li><strong>Peak Infection:</strong> Spike of 1.9M new cases/day recorded in late 2021.</li>
+                            <li><strong>Vaccination Leader:</strong> China led with 83.6% fully vaccinated population.</li>
                         </ul>
                     </div>
                 </div>
@@ -266,15 +308,25 @@ ORDER BY PeopleFullyVaccinated DESC;</code></pre>
         </article>
     </main>
 
-    <!-- Footer (Consistent with Sales Analysis) -->
+    <!-- Footer -->
     <footer class="bg-slate-900 border-t border-slate-800 py-8 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="text-slate-500 text-sm">
                 &copy; 2025 Daniel Querales. 
-                <span class="block sm:inline mt-2 sm:mt-0">Built with <span class="text-indigo-500">❤️</span> and Data.</span>
+                <span class="block sm:inline mt-2 sm:mt-0">Built with <span class="text-pink-500">❤️</span> and Data.</span>
             </p>
         </div>
     </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+    </script>
 
 </body>
 </html>
