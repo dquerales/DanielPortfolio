@@ -1,207 +1,423 @@
-<!DOCTYPE HTML>
-<!--
-	Future Imperfect by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Machine Learning: Predicting Stock Prices with Linear Regression</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-		<link rel="manifest" href="images/site.webmanifest">
-	</head>
-	<body class="single is-preload">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Regression Demo | Daniel Querales</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js for visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc; /* Slate 50 */
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: pulse 10s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            margin-top: -8px; 
+            box-shadow: 0 2px 6px rgba(79, 70, 229, 0.4);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased overflow-x-hidden">
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <!-- Decorative Background Blobs (Fixed) -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div class="blob bg-indigo-300 w-96 h-96 rounded-full top-0 right-0 -mr-20 -mt-20"></div>
+        <div class="blob bg-sky-200 w-80 h-80 rounded-full bottom-0 left-0 -ml-20 -mb-20"></div>
+    </div>
 
-				<!-- Header -->
-					<header id="header">
-						<h1><a href="index.html">Daniel Querales</a></h1>
-						 
-						<nav class="links">
-							<ul>
-							<li><a href="resume.html" target="blank">Resume</a></li>
-							<li><a href="https://www.linkedin.com/in/danielquerales/" target="blank">LinkedIn</a></li>
-							<li><a href="https://github.com/dquerales" target="blank">GitHub</a></li>
-							<li><a href="mailto:d.querales@gmail.com" target="blank">Contact Me</a></li>
-							</ul>
-						</nav>
-					</header>
+    <!-- Navigation Bar -->
+    <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-all duration-300">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center relative">
+            <a href="index.html" class="text-2xl font-bold font-heading tracking-tight flex items-center gap-2 group">
+                <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm group-hover:bg-indigo-700 transition">DQ</span>
+                <span class="text-slate-900 group-hover:text-indigo-600 transition">Daniel Querales</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Home</a>
+                <a href="https://github.com/dquerales/Resume/releases/latest/download/daniel_querales_resume.pdf" target="_blank" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Resume</a>
+                <a href="mailto:d.querales@gmail.com" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
+            </div>
 
-				<!-- Menu -->
-				<section id="menu">
+            <div class="hidden md:flex items-center space-x-3">
+                <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition" title="GitHub">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm hover:shadow-md transition">
+                    LinkedIn
+                </a>
+            </div>
 
-					<!-- Search -->
-						<section>
-							<form class="search" method="get" action="#">
-								<input type="text" name="query" placeholder="Search" />
-							</form>
-						</section>
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 focus:outline-none transition">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
 
-					<!-- Links -->
-						<section>
-							<ul class="links">
-								<li>
-									<a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin" target="_blank"><span class="label">Linkedin</span>
-										Daniel Querales
-										<p>My Linkedin Profile</p>
-									</a>
-								</li>
-								<li>
-									<a href="https://github.com/dquerales" class="icon brands fa-github" target="_blank"><span class="label">Github</span>
-										dquerales
-										<p>My Github Repository</p>
-									</a>
-								</li>
-								<li>
-									<a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" target="_blank"><span class="label">Email</span>
-										d.querales@gmail.com
-										<p>My Email Address</p>
-									</a>
-								</li>
-							</ul>
-						</section>
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/60 shadow-lg px-4 py-6 space-y-4 z-50">
+                <a href="index.html" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Home</a>
+                <a href="https://github.com/dquerales/Resume/releases/latest/download/daniel_querales_resume.pdf" target="_blank" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Resume</a>
+                <a href="mailto:d.querales@gmail.com" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Contact</a>
+                <div class="pt-4 border-t border-slate-200/60 flex items-center justify-between">
+                    <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/danielquerales/" target="_blank" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-sm transition">
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-					<!-- Actions -->
-					<!-- 
-						<section>
-							<ul class="actions stacked">
-								<li><a href="#" class="button large fit">Log In</a></li>
-							</ul>
-						</section>
-					-->
-				</section>
+    <main class="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <a href="index.html" class="inline-flex items-center text-indigo-600 font-semibold mb-6 hover:text-indigo-800 transition">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Portfolio
+            </a>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+                <span class="text-gradient">Linear Regression</span> Playground
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Interactive demonstration of the Ordinary Least Squares (OLS) algorithm. Adjust the parameters below to see how the model fits the data in real-time.
+            </p>
+        </div>
 
-				<!-- Main -->
-					<div id="main">
+        <!-- Interactive Playground -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Controls Panel -->
+            <div class="bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 p-6 h-fit">
+                <div class="flex items-center gap-2 mb-6 border-b border-slate-100 pb-4">
+                    <span class="bg-indigo-100 text-indigo-600 p-2 rounded-lg">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    </span>
+                    <h3 class="font-bold text-slate-800 text-lg">Model Parameters</h3>
+                </div>
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">Machine Learning: Predicting Stock Prices with Linear Regression</a></h2>
-										<p>A machine learning project to predict Stock Prices using the Python libraries like Pandas, Numpy, SKlearn and Plotly.</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2021-01-19">January 19, 2022</time>
-										<a href="#" class="author"><span class="name">Daniel Querales</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<span class="image featured"><img src="images/pic02.jpg" alt="" /></span>
+                <!-- Control: Slope -->
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <label class="text-sm font-semibold text-slate-700">Slope (m)</label>
+                        <span id="slopeVal" class="text-sm font-mono text-indigo-600 bg-indigo-50 px-2 rounded">1.0</span>
+                    </div>
+                    <input type="range" id="slope" min="-5" max="5" step="0.1" value="1" class="w-full">
+                </div>
 
-								<h1>
-									Project overview
-								</h1>
+                <!-- Control: Intercept -->
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <label class="text-sm font-semibold text-slate-700">Intercept (b)</label>
+                        <span id="interceptVal" class="text-sm font-mono text-indigo-600 bg-indigo-50 px-2 rounded">0.0</span>
+                    </div>
+                    <input type="range" id="intercept" min="-10" max="10" step="0.5" value="0" class="w-full">
+                </div>
 
-								<ul>
-									<li>This is a machine learning project of the Tesla stock price dataset (from 2020 to 2022).</li>
-									<li>A linear regression method was used to predict the prices using historic values as reference.</li>
-									<li>The project was made for educational purpose and his values are not an investment advice</li>
-									<li>The tools used are the next Python libraries: Pandas, Numpy, Plotly and Sk-Learn.</li>
-									<li>All the procedures are recorded in a Jupyter Notebook.</li>
-									<li>The prices was obtained from the <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance API</a>  </li>
-									<li>All the files can be downloaded from my <a href="https://github.com/dquerales/DataScience" target="_blank">GitHub
-										Repository.</a></li>
-								</ul>
+                <!-- Control: Noise -->
+                <div class="mb-6">
+                    <div class="flex justify-between mb-2">
+                        <label class="text-sm font-semibold text-slate-700">Noise (Error)</label>
+                        <span id="noiseVal" class="text-sm font-mono text-indigo-600 bg-indigo-50 px-2 rounded">2.0</span>
+                    </div>
+                    <input type="range" id="noise" min="0" max="10" step="0.1" value="2" class="w-full">
+                </div>
 
-								<h1>
-									Objectives
-								</h1>
+                <!-- Control: Samples -->
+                <div class="mb-8">
+                    <div class="flex justify-between mb-2">
+                        <label class="text-sm font-semibold text-slate-700">Sample Size (N)</label>
+                        <span id="samplesVal" class="text-sm font-mono text-indigo-600 bg-indigo-50 px-2 rounded">50</span>
+                    </div>
+                    <input type="range" id="samples" min="10" max="200" step="10" value="50" class="w-full">
+                </div>
 
-								<p> The goal was to train a machine learning model that tries to predict Tesla (TSLA) stocks prices in a range of the two past years to understand how the pandemic is currently affecting the performance of the company. </p>
+                <button onclick="generateData()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition shadow-lg shadow-indigo-200">
+                    Regenerate Data
+                </button>
+            </div>
 
-                                <h1>
-									Data transformation and preparation
-								</h1>
-							    
-								<p> All the data was taken from <a href="https://finance.yahoo.com/quote/TSLA/" target="_blank"> Yahoo Finance API</a> as a CSV file.</p>
+            <!-- Visualization Panel -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 p-6 flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-slate-800 text-lg">Regression Analysis</h3>
+                    <div class="flex gap-4 text-sm">
+                        <div class="flex items-center gap-1">
+                            <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+                            <span class="text-slate-500">Model Prediction</span>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+                            <span class="text-slate-500">Actual Data</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chart Container -->
+                <div class="relative h-80 w-full flex-grow">
+                    <canvas id="regressionChart"></canvas>
+                </div>
 
-                                <h1>Data Analysis</h1>
-							
-									<h2>Candle Chart</h2>
-									&nbsp
-										<iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/1.embed"></iframe>							
+                <!-- Metrics -->
+                <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-slate-100">
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Estimated Equation</p>
+                        <p id="equationDisplay" class="text-lg font-mono font-bold text-indigo-600 mt-1">y = 1.0x + 0.0</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Mean Squared Error</p>
+                        <p id="mseDisplay" class="text-lg font-mono font-bold text-rose-500 mt-1">0.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-									<h2>Adjusted Close</h2>
-									&nbsp
-										<iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/5.embed"></iframe>
+        <!-- Explanation Section -->
+        <div class="mt-12 bg-white/60 backdrop-blur-sm rounded-2xl border border-slate-200 p-8">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4">How it works</h2>
+            <div class="prose text-slate-600 max-w-none">
+                <p class="mb-4">
+                    Linear regression attempts to model the relationship between two variables by fitting a linear equation to observed data. One variable is considered to be an explanatory variable, and the other is considered to be a dependent variable.
+                </p>
+                <p>
+                    The visualizer above generates synthetic data points based on your inputs and adds random Gaussian noise. It then calculates the <strong>Line of Best Fit</strong> using the least squares method to minimize the sum of the squares of the vertical offsets.
+                </p>
+            </div>
+        </div>
 
-									<h2>Volume</h2>
-									&nbsp
-										<iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/9.embed"></iframe>
+    </main>
 
-									<h2>Market Capitalization</h2>
-									&nbsp
-										<iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/11.embed"></iframe>
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">
+                &copy; 2025 Daniel Querales. 
+                <span class="block sm:inline mt-2 sm:mt-0">Built with <span class="text-indigo-500">❤️</span> and Data.</span>
+            </p>
+        </div>
+    <!-- Logic Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const btn = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    menu.classList.toggle('hidden');
+                });
+                
+                // Close menu when clicking a link
+                menu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        menu.classList.add('hidden');
+                    });
+                });
+            }
+        });
+    </script>
 
-									<h2>Volatility</h2>
-									&nbsp
-									    <iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/15.embed"></iframe>
+    <!-- Logic Script -->
+    <script>
+        const ctx = document.getElementById('regressionChart').getContext('2d');
+        let chart;
 
-									<h2>Moving Averages (50-200 days)</h2>
-									&nbsp
-										<iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/13.embed"></iframe>
+        // UI Elements
+        const slopeSlider = document.getElementById('slope');
+        const interceptSlider = document.getElementById('intercept');
+        const noiseSlider = document.getElementById('noise');
+        const samplesSlider = document.getElementById('samples');
+        
+        const slopeVal = document.getElementById('slopeVal');
+        const interceptVal = document.getElementById('interceptVal');
+        const noiseVal = document.getElementById('noiseVal');
+        const samplesVal = document.getElementById('samplesVal');
+        const equationDisplay = document.getElementById('equationDisplay');
+        const mseDisplay = document.getElementById('mseDisplay');
 
-								<h1>Machine Learning</h1>
-									<h2>Linear Regression Model</h2>
-									&nbsp
-										<iframe class="image featured" width="900" height="600" frameborder="0" scrolling="no" src="//plotly.com/~danielquerales/19.embed"></iframe>
-                                
-								<h1>Conclusions</h1>
-								<ul>
-									<li>The adjusted close price had a positive slope in the period of study.</li>
-									<li>The all time high value was 1243$ at 2021-11-04.</li>
-									<li>The all time low value was 70$ at 2020-03-18.</li>
-									<li>The max volume was 304M$ at 2020-02-04, it had a spike in February, July and December of 2020.</li>
-									<li>The Market capitalization had his highest value in December 18, 2020.</li>
-									<li>The volatility was around 5% per day.</li>
-									<li>The 50-200 days averages were positive most of time.</li>
-									<li>If we would have invested in the TSLA stock, at start 2020, we had today a return of 800%.</li>
-									<li>The machine learning model has around 98% of accuracy for predicting test values.</li>
-									<li>This model is only used for educational purpose. In reality, the market volatility makes extremely difficult to anticipate the rise and fall of the stocks.</li>
-								</ul>
+        // Initial Data Generation
+        function generateData() {
+            const m = parseFloat(slopeSlider.value);
+            const b = parseFloat(interceptSlider.value);
+            const noise = parseFloat(noiseSlider.value);
+            const n = parseInt(samplesSlider.value);
 
-								<footer>
-									<ul class="stats">
-										<li><a href="#">Machine Learning</a></li>
-										<!--
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-										-->
-									</ul>
-								</footer>
-							</article>
+            // Update Labels
+            slopeVal.innerText = m.toFixed(1);
+            interceptVal.innerText = b.toFixed(1);
+            noiseVal.innerText = noise.toFixed(1);
+            samplesVal.innerText = n;
 
-					</div>
+            let dataPoints = [];
+            let labels = [];
+            let xValues = [];
+            let yValues = [];
 
-				<!-- Footer -->
-					<section id="footer">
-						<ul class="icons">
-							<li><a href="https://www.linkedin.com/in/daniel-querales-865335222/" class="icon brands fa-linkedin"><span class="label">Linkedin</span></a></li>
-							<li><a href="https://github.com/dquerales" class="icon brands fa-github" ><span class="label">Github</span></a></li>
-							<!-- <li><a href="#" class="icon brands fa-twitter"><span class="label" >Twitter</span></a></li> -->
-							<!-- <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li> -->
-							<!-- <li><a href="#" class="icon brands fa-instagram"><span class="label" >Instagram</span></a></li> -->
-							<!-- <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li> -->
-							<li><a href="mailto:d.querales@gmail.com" class="icon solid fa-envelope" ><span class="label">Email</span></a></li>
-						</ul>
-						<p class="copyright">&copy; 2022 Daniel Querales. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-					</section>
+            // Generate synthetic data
+            for (let i = 0; i < n; i++) {
+                let x = (i / n) * 10; // Scale x from 0 to 10
+                let randomNoise = (Math.random() - 0.5) * noise * 5; 
+                let y = (m * x) + b + randomNoise;
+                
+                dataPoints.push({x: x, y: y});
+                labels.push(x.toFixed(1));
+                xValues.push(x);
+                yValues.push(y);
+            }
 
-			</div>
+            // Calculate Linear Regression (Least Squares)
+            const xMean = xValues.reduce((a, b) => a + b, 0) / n;
+            const yMean = yValues.reduce((a, b) => a + b, 0) / n;
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+            let numerator = 0;
+            let denominator = 0;
 
-	</body>
+            for(let i=0; i<n; i++) {
+                numerator += (xValues[i] - xMean) * (yValues[i] - yMean);
+                denominator += (xValues[i] - xMean) ** 2;
+            }
+
+            const slopeEst = numerator / denominator;
+            const interceptEst = yMean - (slopeEst * xMean);
+
+            // Generate Regression Line points
+            let regressionLine = [];
+            let mse = 0;
+
+            for(let i=0; i<n; i++) {
+                let predY = (slopeEst * xValues[i]) + interceptEst;
+                regressionLine.push({x: xValues[i], y: predY});
+                mse += (yValues[i] - predY) ** 2;
+            }
+            mse = mse / n;
+
+            // Update UI Metrics
+            equationDisplay.innerText = `y = ${slopeEst.toFixed(2)}x + ${interceptEst.toFixed(2)}`;
+            mseDisplay.innerText = mse.toFixed(2);
+
+            updateChart(dataPoints, regressionLine);
+        }
+
+        function updateChart(scatterData, lineData) {
+            if (chart) {
+                chart.data.datasets[0].data = scatterData;
+                chart.data.datasets[1].data = lineData;
+                chart.update();
+            } else {
+                chart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: 'Actual Data',
+                            data: scatterData,
+                            backgroundColor: '#38bdf8', // Sky 400
+                            borderColor: '#38bdf8',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }, {
+                            label: 'Regression Line',
+                            data: lineData,
+                            type: 'line',
+                            borderColor: '#4f46e5', // Indigo 600
+                            borderWidth: 3,
+                            pointRadius: 0,
+                            fill: false,
+                            tension: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom',
+                                title: { display: true, text: 'Independent Variable (X)' },
+                                grid: { color: '#f1f5f9' }
+                            },
+                            y: {
+                                title: { display: true, text: 'Dependent Variable (Y)' },
+                                grid: { color: '#f1f5f9' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `(${context.parsed.x.toFixed(1)}, ${context.parsed.y.toFixed(1)})`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Listeners
+        slopeSlider.addEventListener('input', generateData);
+        interceptSlider.addEventListener('input', generateData);
+        noiseSlider.addEventListener('input', generateData);
+        samplesSlider.addEventListener('input', generateData);
+
+        // Initialize
+        generateData();
+
+    </script>
+</body>
 </html>

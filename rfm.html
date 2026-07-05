@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Exploration: Two years of COVID-19 | Daniel Querales</title>
+    <title>RFM Customer Segmentation | Marketing Analytics | Daniel Querales</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for Icons -->
@@ -12,12 +12,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4f46e5;
+            --primary: #4f46e5; /* Indigo */
             --primary-dark: #4338ca;
         }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fafc; /* Slate 50 */
+            background-color: #f8fafc;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -29,7 +29,7 @@
             font-family: 'Outfit', sans-serif;
         }
         .text-gradient {
-            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%);
+            background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 100%); /* Indigo/Blue gradient */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -51,8 +51,7 @@
             font-weight: 700;
             color: #1e293b;
         }
-        /* Responsive Font Sizes */
-        .prose-custom h1 { font-size: 1.75rem; line-height: 1.2; } /* Mobile default */
+        .prose-custom h1 { font-size: 1.75rem; line-height: 1.2; }
         @media (min-width: 768px) { .prose-custom h1 { font-size: 2.25rem; } }
 
         .prose-custom h2 { font-size: 1.5rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
@@ -66,10 +65,10 @@
             color: #f3f4f6;
             padding: 1rem;
             border-radius: 0.5rem;
-            overflow-x: auto; /* Critical for mobile */
+            overflow-x: auto;
             font-family: monospace;
             margin-bottom: 1.5rem;
-            font-size: 0.8rem; /* Slightly smaller code font on mobile */
+            font-size: 0.8rem;
         }
         @media (min-width: 768px) { pre { font-size: 0.875rem; } }
 
@@ -90,6 +89,16 @@
         .prose-custom a:hover {
             color: var(--primary-dark);
         }
+        pre::-webkit-scrollbar {
+            height: 8px;
+        }
+        pre::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        pre::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
     </style>
 </head>
 <body class="text-slate-800 antialiased overflow-x-hidden">
@@ -104,14 +113,15 @@
     <header class="fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200/60 shadow-sm transition-all duration-300">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center relative">
             <a href="index.html" class="text-2xl font-bold font-heading tracking-tight flex items-center gap-2 group">
-                <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm group-hover:bg-indigo-700 transition">DQ</span>
+                <span class="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm group-hover:bg-indigo-700 transition flex-shrink-0">DQ</span>
                 <span class="text-slate-900 group-hover:text-indigo-600 transition">Daniel Querales</span>
             </a>
             
             <div class="hidden md:flex items-center space-x-8">
-                <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Home</a>
+                <a href="index.html#skills" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Expertise</a>
+                <a href="index.html#projects" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Projects</a>
                 <a href="https://github.com/dquerales/Resume/releases/latest/download/daniel_querales_resume.pdf" target="_blank" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Resume</a>
-                <a href="mailto:d.querales@gmail.com" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
+                <a href="index.html#contact" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition">Contact</a>
             </div>
 
             <div class="hidden md:flex items-center space-x-3">
@@ -132,9 +142,10 @@
 
             <!-- Mobile Dropdown Menu -->
             <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/60 shadow-lg px-4 py-6 space-y-4 z-50">
-                <a href="index.html" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Home</a>
+                <a href="index.html#skills" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Expertise</a>
+                <a href="index.html#projects" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Projects</a>
                 <a href="https://github.com/dquerales/Resume/releases/latest/download/daniel_querales_resume.pdf" target="_blank" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Resume</a>
-                <a href="mailto:d.querales@gmail.com" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Contact</a>
+                <a href="index.html#contact" class="block text-base font-semibold text-slate-700 hover:text-indigo-600 transition">Contact</a>
                 <div class="pt-4 border-t border-slate-200/60 flex items-center justify-between">
                     <a href="https://github.com/dquerales" target="_blank" class="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
@@ -158,12 +169,13 @@
         <!-- Article Container -->
         <article class="bg-white rounded-2xl shadow-xl shadow-indigo-100 border border-slate-100 overflow-hidden w-full">
             
-            <!-- Featured Image -->
-            <div class="h-40 sm:h-64 md:h-80 relative overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1584036561566-baf8f5f1b144?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
-                     alt="Microscopic image of a virus" 
-                     class="w-full h-full object-cover"
-                     onerror="this.onerror=null;this.src='https://placehold.co/1200x320/1f2937/ffffff?text=COVID-19+Data+Project';" />
+            <!-- Featured Image: RFM Icons -->
+            <div class="h-40 sm:h-64 md:h-80 relative overflow-hidden flex items-center justify-center bg-slate-900">
+                <div class="text-8xl flex space-x-8 text-indigo-400">
+                    <i class="fas fa-history opacity-70" title="Recency"></i>
+                    <i class="fas fa-redo-alt text-white" title="Frequency"></i>
+                    <i class="fas fa-dollar-sign opacity-70" title="Monetary"></i>
+                </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
             </div>
 
@@ -173,17 +185,17 @@
                 <!-- Title & Meta -->
                 <header class="mb-8 border-b border-slate-100 pb-8">
                     <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-slate-900 mb-4 font-heading leading-tight break-words">
-                        Data Exploration: <br class="sm:hidden"><span class="text-gradient">Two years of COVID</span>
+                        RFM Customer Segmentation: <br class="sm:hidden"><span class="text-gradient">Analyzing Purchase Behavior</span>
                     </h1>
                     
                     <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-sm text-slate-500 mt-4">
                         <div class="flex items-center gap-2">
-                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wide">Data Exploration</span>
+                            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-semibold text-xs uppercase tracking-wide">Marketing Analytics</span>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="hidden sm:inline">&bull;</span>
                             <i class="far fa-calendar-alt sm:hidden"></i>
-                            <time datetime="2022-01-02">Jan 2, 2022</time>
+                            <time datetime="2025-08-01">August 01, 2025</time>
                         </div>
                         <div class="flex items-center gap-2">
                             <span class="hidden sm:inline">&bull;</span>
@@ -195,111 +207,104 @@
                     </div>
                     
                     <p class="mt-6 text-lg sm:text-xl text-slate-600 leading-relaxed">
-                        A data exploration project of the COVID-19 dataset using tools like SQL and Tableau to understand how the global pandemic developed between 2020 and 2021.
+                        Applying the Recency, Frequency, Monetary (RFM) model to transform raw transactional data into meaningful customer segments, driving personalized marketing and retention efforts.
                     </p>
                 </header>
 
                 <!-- Project Content -->
                 <div class="prose-custom max-w-none">
                     
-                    <h2 class="mb-4">Project Overview</h2>
+                    <h2 class="mb-4">Project Overview: Quantifying Customer Value</h2>
+                    <p class="text-slate-600 mb-4 text-sm sm:text-base">
+                        RFM analysis is a data-driven marketing technique used to quantitatively rank and group customers based on their purchasing habits. The resulting segments allow businesses to allocate marketing resources efficiently by targeting the most valuable or 'at-risk' customer groups.
+                    </p>
                     <div class="bg-slate-50 p-4 sm:p-6 rounded-xl border border-slate-100 mb-8">
                         <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm sm:text-base mb-0">
-                            <li><strong>Dataset:</strong> COVID-19 (2020-2021).</li>
-                            <li><strong>Key Metrics:</strong> Total cases, deaths & vaccination rates.</li>
-                            <li><strong>Comparison:</strong> Benchmarked against Google's Coronavirus dashboard.</li>
-                            <li><strong>Tech Stack:</strong> SQL Server & Tableau Public.</li>
-                            <li><strong>Code:</strong> Available on <a href="https://github.com/dquerales/DataScience" target="_blank" class="break-all sm:break-normal">GitHub Repository</a>.</li>
+                            <li><strong>Dataset:</strong> E-commerce Transactional Data (Customer ID, Invoice Date, Sales Amount).</li>
+                            <li><strong>Goal:</strong> Create and label distinct customer segments (e.g., Champions, At-Risk, New Customers).</li>
+                            <li><strong>Technique:</strong> Quantile-based Ranking (q-cut) for R, F, and M scores.</li>
+                            <li><strong>Deliverable:</strong> Actionable segmentation for personalized campaigns.</li>
                         </ul>
                     </div>
 
-                    <h2 class="mb-4">Objectives</h2>
-                    <p class="text-slate-600 mb-8 text-sm sm:text-base">
-                        The goal is to build a report that shows summarized information about the deaths, cases and vaccinations corresponding to the period of 2020-2021 to understand how the pandemic is currently developing in the world.
+                    <h2 class="mb-4">Step 1: Calculating R, F, and M Metrics</h2>
+                    <p class="text-slate-600 mb-4 text-sm sm:text-base">
+                        The first step aggregates transactional data for each customer ID to derive the three key metrics, based on a defined 'snapshot date' (usually the most recent date in the dataset).
                     </p>
 
-                    <h2 class="mb-4">Data Preparation</h2>
-                    <h3 class="mb-2">Importing Data</h3>
-                    <p class="text-slate-600 mb-8 text-sm sm:text-base">
-                        Data sourced from <a href="https://ourworldindata.org/coronavirus" target="_blank">Our World in Data</a>. The process involved extracting data from CSVs, importing into SQL Server, executing queries, and visualizing results in Tableau.
+                    <div class="code-block">
+                        <pre><code class="language-python">import pandas as pd
+from datetime import datetime
+
+# Load and prepare data (simulated)
+df = pd.read_csv('ecommerce_transactions.csv')
+df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
+
+# Define a snapshot date (1 day after the last transaction date)
+SNAPSHOT_DATE = df['InvoiceDate'].max() + pd.Timedelta(days=1)
+
+# Calculate RFM metrics per customer
+rfm_df = df.groupby('CustomerID').agg(
+    Recency=('InvoiceDate', lambda x: (SNAPSHOT_DATE - x.max()).days),
+    Frequency=('InvoiceNo', 'nunique'),
+    Monetary=('SalesAmount', 'sum')
+).reset_index()
+
+print("RFM Metrics Calculated:")
+print(rfm_df.head())</code></pre>
+                    </div>
+
+                    <h2 class="mb-4">Step 2: Assigning RFM Scores (1-5)</h2>
+                    <p class="text-slate-600 mb-4 text-sm sm:text-base">
+                        To simplify segmentation, we rank each metric into a score from 1 to 5 using quartiles (q-cuts). Note that Recency is scored inversely: the lower the recency value (more recent), the higher the score (5).
                     </p>
+                    <div class="code-block">
+                        <pre><code class="language-python"># Assign scores using quantiles (5 is the best score)
+# R_Score: Lower Recency is better, so we reverse the quantile order
+rfm_df['R_Score'] = pd.qcut(rfm_df['Recency'], 5, labels=[5, 4, 3, 2, 1])
 
-                    <h2 class="mb-6">Asking the Questions (SQL)</h2>
+# F_Score: Higher Frequency is better
+rfm_df['F_Score'] = pd.qcut(rfm_df['Frequency'].rank(method='first'), 5, labels=[1, 2, 3, 4, 5])
 
-                    <div class="space-y-8">
-                        <!-- Query A -->
-                        <div class="code-block">
-                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">a) Total Cases vs Total Deaths</h3>
-                            <pre><code class="language-sql">SELECT 
-    MAX(total_cases) AS TotalCases, 
-    MAX(total_deaths) AS TotalDeaths, 
-    (MAX(total_deaths)/MAX(total_cases)*100) AS DeathPct 
-FROM clean_owid_covid;</code></pre>
-                        </div>
+# M_Score: Higher Monetary is better
+rfm_df['M_Score'] = pd.qcut(rfm_df['Monetary'], 5, labels=[1, 2, 3, 4, 5])
 
-                        <!-- Query B -->
-                        <div class="code-block">
-                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">b) Global Vaccination Stats</h3>
-                            <pre><code class="language-sql">SELECT 
-    MAX(population) AS WorldPop, 
-    MAX(people_fully_vaccinated) AS Vaccinated, 
-    MAX(people_fully_vaccinated)/MAX(population)*100 AS VaccPct
-FROM clean_owid_covid;</code></pre>
-                        </div>
-                        
-                        <!-- Query C -->
-                        <div class="code-block">
-                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">c) New Cases Per Date</h3>
-                            <pre><code class="language-sql">SELECT date, MAX(new_cases) AS NewCases 
-FROM clean_owid_covid 
-GROUP BY date 
-ORDER BY date;</code></pre>
-                        </div>
-
-                        <!-- Query D -->
-                        <div class="code-block">
-                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">d) Countries with Most Deaths</h3>
-                            <pre><code class="language-sql">SELECT location, MAX(total_deaths) AS TotalDeaths 
-FROM clean_owid_covid
-WHERE continent IS NOT NULL
-GROUP BY location
-ORDER BY TotalDeaths DESC
-LIMIT 5;</code></pre>
-                        </div>
-
-                        <!-- Query E -->
-                        <div class="code-block">
-                            <h3 class="mb-2 text-base sm:text-lg font-semibold text-slate-800">e) Vaccination Speed by Location</h3>
-                            <pre><code class="language-sql">SELECT location, 
-    MAX(people_fully_vaccinated) AS PeopleFullyVax,
-    MAX(people_fully_vaccinated)/MAX(population)*100 AS PctFullyVax
-FROM clean_owid_covid
-WHERE continent IS NOT NULL
-GROUP BY location
-ORDER BY PeopleFullyVax DESC;</code></pre>
-                        </div>
-                    </div>
-                    
-                    <h2 class="mt-12 mb-6">Results (Dashboard)</h2>
-                    
-                    <!-- Tableau Placeholder - Responsive Container -->
-                    <div class="w-full bg-indigo-50 border-4 border-dashed border-indigo-200 rounded-xl p-6 sm:p-10 text-center shadow-inner flex flex-col items-center justify-center">
-                        <i class="fa-solid fa-chart-pie text-5xl sm:text-6xl text-indigo-500 mb-4"></i>
-                        <p class="text-lg sm:text-xl font-bold text-slate-800 mb-2">Interactive Dashboard</p>
-                        <p class="text-sm sm:text-base text-slate-600 mb-6 max-w-md mx-auto">Explore the full interactive Tableau visualization directly on Tableau Public.</p>
-                        <a href="https://public.tableau.com/profile/daniel.querales#!/vizhome/TwoyearsofCOVID2020-2021/Dashboard1" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm sm:text-base font-bold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition transform hover:-translate-y-0.5 w-full sm:w-auto">
-                            View on Tableau Public <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
+# Combine R, F, and M scores into a single RFM_Score string
+rfm_df['RFM_Score'] = rfm_df['R_Score'].astype(str) + rfm_df['F_Score'].astype(str) + rfm_df['M_Score'].astype(str)</code></pre>
                     </div>
 
-                    <h2 class="mt-12 mb-4">Conclusions</h2>
+                    <h2 class="mb-4">Step 3: Defining Customer Segments</h2>
+                    <p class="text-slate-600 mb-4 text-sm sm:text-base">
+                        Using the combined RFM score, we map customers into high-level, actionable segments. For example, "Champions" (R=5, F=5, M=5) are the most valuable, while "Losing Customers" (R=1, F=1, M=1) require immediate attention. 
+                    </p>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm mb-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center"><i class="fas fa-users-cog text-indigo-500 mr-2"></i> Core RFM Segments</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                                <strong class="text-green-800">Champions (5xx):</strong> Best customers, purchased recently, frequently, and spent the most.
+                            </div>
+                            <div class="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                                <strong class="text-yellow-800">Potential Loyalists (44x):</strong> High R/F scores, but need nudging to increase M.
+                            </div>
+                            <div class="bg-red-50 p-3 rounded-lg border border-red-200">
+                                <strong class="text-red-800">At Risk (1xx - 2xx):</strong> Purchased long ago, need re-engagement campaigns immediately.
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                                <strong class="text-blue-800">New Customers (51x):</strong> High Recency, low Frequency/Monetary. Focus on conversion/loyalty.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="mt-12 mb-4">Actionable Marketing Strategy</h2>
+                    <p class="text-slate-600 mb-4 text-sm sm:text-base">
+                        The real value of RFM lies in its direct applicability to marketing campaigns. Each segment requires a unique treatment.
+                    </p>
+                    
                     <div class="bg-indigo-50 p-5 sm:p-6 rounded-xl border border-indigo-100 text-slate-700 shadow-sm">
                         <ul class="list-disc list-inside space-y-3 text-sm sm:text-base">
-                            <li><strong>Mortality Rate:</strong> Approximately 1.8% of total cases resulted in death.</li>
-                            <li><strong>Global Vaccination:</strong> ~50% of the world population fully vaccinated by 2022.</li>
-                            <li><strong>Highest Deaths:</strong> The US reported the highest death toll (824K).</li>
-                            <li><strong>Peak Infection:</strong> Spike of 1.9M new cases/day recorded in late 2021.</li>
-                            <li><strong>Vaccination Leader:</strong> China led with 83.6% fully vaccinated population.</li>
+                            <li><strong>Champions (R:5, F:5, M:5):</strong> Reward them. Focus on high-value pre-sales or exclusive new product launches. Avoid excessive discounting.</li>
+                            <li><strong>At-Risk Customers (R:1-2, F:3-5, M:3-5):</strong> Win-back campaigns. Offer personalized discounts or surveys to understand why they stopped purchasing.</li>
+                            <li><strong>Hibernating (R:1, F:1, M:1):</strong> Last resort. Deep discounting or entirely new product line offers to wake them up.</li>
                         </ul>
                     </div>
                 </div>
